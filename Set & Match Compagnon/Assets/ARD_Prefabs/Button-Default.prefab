@@ -114,7 +114,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 9034728179299446431}
   m_OnClick:
     m_PersistentCalls:
@@ -234,12 +234,12 @@ PrefabInstance:
     - target: {fileID: 7793192457075414575, guid: 931e78cd21e946944a1607bac5bef69c,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 7
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 7793192457075414575, guid: 931e78cd21e946944a1607bac5bef69c,
         type: 3}
       propertyPath: m_textInfo.wordCount
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7793192457075414575, guid: 931e78cd21e946944a1607bac5bef69c,
         type: 3}
@@ -254,7 +254,17 @@ PrefabInstance:
     - target: {fileID: 7793192457075414575, guid: 931e78cd21e946944a1607bac5bef69c,
         type: 3}
       propertyPath: m_fontSize
-      value: 89.5
+      value: 71.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7793192457075414575, guid: 931e78cd21e946944a1607bac5bef69c,
+        type: 3}
+      propertyPath: m_text
+      value: Nouveau Match
+      objectReference: {fileID: 0}
+    - target: {fileID: 7793192457075414575, guid: 931e78cd21e946944a1607bac5bef69c,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7793192457075414993, guid: 931e78cd21e946944a1607bac5bef69c,
         type: 3}
