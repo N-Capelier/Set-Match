@@ -11,14 +11,15 @@ namespace Player
     {
         public PlayerStats stats;
         public PlayerData data;
-        public string name { get; private set; }
-        public string surname { get; private set; }
-        public string username { get; private set; }
-        public string mail { get; private set; }
-        public string password { get; private set; }
-        public bool checkedTOS { get; private set; }
+        public readonly string name;
+        public readonly string surname;
+        public readonly string username;
+        public readonly string mail;
+        public readonly string password;
 
-        public PlayerID(string name, string surname, string username, string mail, string password, bool checkedTOS)
+        public Vector2 location;
+        
+        public PlayerID(string name, string surname, string username, string mail, string password)
         {
             stats = new PlayerStats();
             data = new PlayerData();
@@ -27,8 +28,9 @@ namespace Player
             this.surname = surname;
             this.username = username;
             this.mail = mail;
+            password.Encrypt(GameManager.encryptKey);
             this.password = password;
-            this.checkedTOS = checkedTOS;
+            location = new Vector2();
         }
     }
 
@@ -47,7 +49,7 @@ namespace Player
 
         #region Login Methods
 
-        public bool Register(string name, string surname, string username, string mail, string password, bool checkedTOS)
+        public bool Register(string name, string surname, string username, string mail, string password)
         {
             //First, check if email address and username do not exist in database
             //if()
@@ -56,37 +58,45 @@ namespace Player
             //}
 
             //create ID and login
-            if(checkedTOS)
-            {
-                id = new PlayerID(name, surname, username, mail, password, checkedTOS);
-                Login(mail, password);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            id = new PlayerID(name, surname, username, mail, password);
+            Login(mail, password);
+            return true;
         }
 
         public void Login(string mail, string password)
         {
+            //find corresponding mail in database
+
+            //Compare given password with database password (decrypted)
+            //if(password == serverPassword.Decrypt(GameManager.encryptKey))
+
+
+            //Then log the player in
             isLoggedIn = true;
 
-            //goto main menu
+            //And go to main menus
         }
 
         public void Logout()
         {
+            //log the player out
             isLoggedIn = false;
 
             //goto main menu
+        }
+
+        public void ResetPassword(string mail, string newPassword)
+        {
+            //Use this method only if the user's verification email code as been given
+
+            id = new PlayerID(id.name, id.surname, id.username, id.mail, newPassword);
         }
 
         #endregion
 
         #region Stats and data Methods
 
-        public void ResetAllData()
+        public void ResetAllAccountData()
         {
             ResetStats();
             ResetData();

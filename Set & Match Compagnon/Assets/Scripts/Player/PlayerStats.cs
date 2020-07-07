@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Player
 {
+    /// <summary>
+    /// NCO
+    /// </summary>
     public class PlayerStats
     {
         #region Variables
@@ -41,7 +44,7 @@ namespace Player
 
         #region Methods
 
-        public PlayerStats Share()
+        public PlayerStats GetStats()
         {
             return new PlayerStats(playerScore, pressureCoeff, victoryCount, startGameService,
                 gamesPlayed, hitToScore, hitCount);
