@@ -2,8 +2,8 @@
 
 public interface IScreen 
 {
-    void EnterViewport();
-    void ExitViewport();
-
-
+    void EnterViewportH(float startPos);
+    void ExitViewportH(float endPos); 
+    void EnterViewportV(float startPos);
+    void ExitViewportV(float endPos);
 }
