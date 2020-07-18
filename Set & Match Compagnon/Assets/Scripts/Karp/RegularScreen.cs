@@ -1,13 +1,12 @@
 ﻿using DG.Tweening;
-using System.Collections;
 using UnityEngine;
 
-public class RegularScreen : MonoBehaviour , IScreen
+public class RegularScreen : MonoBehaviour
 {
     [Header("Parametre") , SerializeField]
-    float duration = 0.5f;
-    [SerializeField] Ease easeType = Ease.InElastic;
-    private RectTransform menu;
+    float duration = 0.4f;
+    [SerializeField] Ease easeType = Ease.InOutCubic;
+    protected RectTransform menu;
 
     private void Awake()
     {
@@ -45,7 +44,15 @@ public class RegularScreen : MonoBehaviour , IScreen
         menu.DOAnchorPosX(0, duration, false).SetEase(easeType);
         menu.DOAnchorPosY(0, duration, false).SetEase(easeType);
     }
-    
+    public void MoveViewportH(float posX)
+    {
+        menu.DOAnchorPosX(posX, duration, false).SetEase(easeType);
+    }
+    public void MoveViewportV(float posY)
+    {
+        menu.DOAnchorPosY(posY, duration, false).SetEase(easeType);
+    }
+
     public void SetActiveScreenFromH(float posX)
     {
         gameObject.SetActive(true);
@@ -58,7 +65,7 @@ public class RegularScreen : MonoBehaviour , IScreen
     }
 
 
-    private void disable()
+    protected void disable()
     {
         gameObject.SetActive(false);
     }

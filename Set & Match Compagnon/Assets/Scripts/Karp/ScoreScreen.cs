@@ -1,48 +1,37 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class ScoreScreen : MonoBehaviour
 {
-    [SerializeField]
-    private RectTransform menu;
+    [Header("Parametre"), SerializeField]
+    float duration = 0.8f;
+    [SerializeField] Ease easeType = Ease.InOutCubic;
+    [SerializeField] Vector2 CornerPos;
+    [SerializeField] Color transpColor, opaqueColor;
+    [SerializeField] Image fond;
+    protected RectTransform menu;
 
-    [SerializeField]
-    float duration = 0.5f;
-
-    private void OnEnable()
+    private void Awake()
     {
-        CenterViewport();
+        menu = this.GetComponent<RectTransform>();
+    }
+
+    public void CornerViewport()
+    {
+        menu.DOAnchorPosX(CornerPos.x, duration, false).SetEase(easeType);
+        menu.DOAnchorPosY(CornerPos.y, duration, false).SetEase(easeType);
+        menu.DOScale(0.3f, duration).SetEase(easeType);
+        fond.DOColor(transpColor, duration).SetEase(easeType);
+
     }
 
     public void CenterViewport()
     {
-        menu.DOAnchorPosX(0, duration, false);
-        menu.DOAnchorPosY(0, duration, false);
-    }
+        menu.DOAnchorPosX(0, duration, false).SetEase(easeType);
+        menu.DOAnchorPosY(0, duration, false).SetEase(easeType);
+        menu.DOScale(1, duration).SetEase(easeType);
+        fond.DOColor(opaqueColor, duration).SetEase(easeType);
 
-    public void EnterViewport()
-    {
-        menu.anchoredPosition = new Vector2(2000, 0);
-        menu.DOAnchorPosX(0, duration, false);
-    }
-
-    public void ViewportComeback()
-    {
-        menu.anchoredPosition = new Vector2(-2000, 0);
-        menu.DOAnchorPosX(0, duration, false);
-    }
-
-    public void ExitViewport()
-    {
-        menu.DOAnchorPosX(2000, duration, false);
-
-        Invoke("disable", duration);
-    }
-
-    private void disable()
-    {
-        gameObject.SetActive(false);
     }
 }
