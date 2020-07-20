@@ -634,10 +634,10 @@ PlayerSettings:
     m_VersionCode: 1
     m_VersionName: 
   apiCompatibilityLevel: 6
-  cloudProjectId: 
+  cloudProjectId: b95246e7-d1d5-4e32-a372-c32683cbec24
   framebufferDepthMemorylessMode: 0
-  projectName: 
-  organizationId: 
+  projectName: Set & Match Compagnon
+  organizationId: unity_aqnvl4qbau52nw
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
