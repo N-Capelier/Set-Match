@@ -71,7 +71,7 @@ namespace TennisMatch
             float targetPos = jetonPose[rally.rallyValue + 3];
             Move lastMove = rally.moveHistory.First();
 
-            jeton.DOAnchorPosX(targetPos, Mathf.Abs(lastMove.moveIncrement * 0.5f) * moveDuration, false).SetEase(easeType);
+            jeton.DOAnchorPosX(targetPos, Mathf.Abs(lastMove.moveIncrement * 0.25f) + moveDuration, false).SetEase(easeType);
         }
     }
 }
