@@ -12,7 +12,8 @@ namespace TennisMatch
     public struct PlayerScore
     {
         public readonly string playerName;
-        public bool startsThisTurn;
+        public bool isServing;
+        public bool startsTheParty;
         public int markedPoints;
         public int markedGames;
         public int markedSets;
@@ -20,7 +21,8 @@ namespace TennisMatch
         public PlayerScore(PlayerID id)
         {
             playerName = id.name;
-            startsThisTurn = false;
+            isServing = false;
+            startsTheParty = false;
             markedPoints = 0;
             markedGames = 0;
             markedSets = 0;

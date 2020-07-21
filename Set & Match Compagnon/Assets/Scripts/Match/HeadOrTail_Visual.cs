@@ -1,0 +1,61 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
+using DG.Tweening;
+
+namespace TennisMatch
+{
+    public class HeadOrTail_Visual : MonoBehaviour
+    {
+        [Header("Component")]
+        [SerializeField] private RectTransform coin;
+        [SerializeField] private TextMeshProUGUI coinText;
+        private HeadOrTail headOrTail;
+
+        [Header("Variable")]
+        [SerializeField] private float launchDuration = 2f;
+        [SerializeField] private Ease rotation = Ease.InOutCubic;
+        [SerializeField, Range(1,24)] private int flipNumber = 6;
+
+        private void Awake()
+        {
+            headOrTail = HeadOrTail.Instance;
+        }
+
+        private void OnEnable()
+        {
+            headOrTail.onCoinLauch += OnCoinLauch;
+        }
+        private void OnDisable()
+        {
+            headOrTail.onCoinLauch += OnCoinLauch;
+        }
+
+        public void OnCoinLauch()
+        {
+            StartCoroutine(CoinFlipping(launchDuration, flipNumber));
+        }
+
+        IEnumerator CoinFlipping(float duration,int flipIteration)
+        {
+            coinText.text = "   ";
+
+            coin.DORotate(new Vector3(flipIteration * 360, 0, 0), duration, RotateMode.FastBeyond360).SetEase(rotation);
+            coin.DOMoveY(coin.position.y + 200, duration * 0.5f).SetEase(rotation);
+            coin.DOScale(2, duration * 0.5f).SetEase(rotation);
+
+            yield return new WaitForSecondsRealtime(duration * 0.5f);
+
+            coin.DOMoveY(coin.position.y - 200, duration * 0.5f).SetEase(rotation);
+            coin.DOScale(1, duration * 0.5f).SetEase(rotation);
+
+            yield return new WaitForSecondsRealtime(duration * 0.5f);
+
+            //Affiche le résultat
+            coinText.text = headOrTail.headWin? "Head" : "Tail";
+
+            yield return null;
+        }
+    }
+}
