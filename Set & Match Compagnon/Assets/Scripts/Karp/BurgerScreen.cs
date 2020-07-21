@@ -6,6 +6,7 @@ public class BurgerScreen : MonoBehaviour
     float duration = 0.4f;
     [SerializeField] Ease easeType = Ease.InOutCubic;
     protected RectTransform menu;
+    [SerializeField] private float inHeight = -425, outHeight = -700;
 
     private void Awake()
     {
@@ -14,12 +15,12 @@ public class BurgerScreen : MonoBehaviour
 
     public void BurgerIn()
     {
-        menu.DOAnchorPosY(-425, duration, false).SetEase(easeType);
+        menu.DOAnchorPosY(inHeight, duration, false).SetEase(easeType);
     }
 
     public void BurgerOut()
     {
-        menu.DOAnchorPosY(-700, duration, false).SetEase(easeType);
+        menu.DOAnchorPosY(outHeight, duration, false).SetEase(easeType);
     }
 
 }
