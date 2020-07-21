@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 namespace TennisMatch
 {
+    /// <summary>
+    /// ARD
+    /// </summary>
     public class HeadOrTail : Singleton<HeadOrTail>
     {
         [Header("Coin Button"), SerializeField]
@@ -25,10 +28,7 @@ namespace TennisMatch
         public event Action onCoinLauch;
         public void CoinLauch()
         {
-            if(onCoinLauch != null)
-            {
-                onCoinLauch();
-            }
+            onCoinLauch?.Invoke();
         }
         #endregion
 

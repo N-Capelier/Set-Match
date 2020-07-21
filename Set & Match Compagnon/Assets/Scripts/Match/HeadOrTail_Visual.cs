@@ -6,6 +6,9 @@ using DG.Tweening;
 
 namespace TennisMatch
 {
+    /// <summary>
+    /// ARD
+    /// </summary>
     public class HeadOrTail_Visual : MonoBehaviour
     {
         [Header("Component")]
@@ -29,11 +32,12 @@ namespace TennisMatch
         }
         private void OnDisable()
         {
-            headOrTail.onCoinLauch += OnCoinLauch;
+            headOrTail.onCoinLauch -= OnCoinLauch;
         }
 
         public void OnCoinLauch()
         {
+            StopAllCoroutines();
             StartCoroutine(CoinFlipping(launchDuration, flipNumber));
         }
 

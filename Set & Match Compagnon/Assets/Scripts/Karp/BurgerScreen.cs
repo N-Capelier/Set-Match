@@ -1,5 +1,9 @@
 ﻿using UnityEngine;
 using DG.Tweening;
+
+/// <summary>
+/// ARD
+/// </summary>
 public class BurgerScreen : MonoBehaviour
 {
     [Header("Parametre"), SerializeField]
