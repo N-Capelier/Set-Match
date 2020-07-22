@@ -12,19 +12,15 @@ namespace TennisMatch
     public class HeadOrTail_Visual : MonoBehaviour
     {
         [Header("Component")]
+        [SerializeField] private HeadOrTail headOrTail;
+        [Space(10)]
         [SerializeField] private RectTransform coin;
         [SerializeField] private TextMeshProUGUI coinText;
-        private HeadOrTail headOrTail;
 
         [Header("Variable")]
         [SerializeField] private float launchDuration = 2f;
         [SerializeField] private Ease rotation = Ease.InOutCubic;
         [SerializeField, Range(1,24)] private int flipNumber = 6;
-
-        private void Awake()
-        {
-            headOrTail = HeadOrTail.Instance;
-        }
 
         private void OnEnable()
         {
@@ -57,7 +53,7 @@ namespace TennisMatch
             yield return new WaitForSecondsRealtime(duration * 0.5f);
 
             //Affiche le résultat
-            coinText.text = headOrTail.result_Head ? "Head" : "Tail";
+            coinText.text = headOrTail.coinResult_Head ? "Head" : "Tail";
 
             yield return null;
         }

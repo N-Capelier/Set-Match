@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 namespace TennisMatch
 {
+    /// <summary>
+    /// ARD
+    /// </summary>
     public class PartyScore_Visual : MonoBehaviour
     {
         [Header("Component")]
@@ -27,11 +30,12 @@ namespace TennisMatch
 
 
         [Header("Variable")]
+        [SerializeField] private MatchData match;
+        [Space(10)]
         [SerializeField] private float focusDur = 0.5f;
         [SerializeField] private float changeServDur = 1f;
         [SerializeField] private float ballTeamAPos, ballTeamBPos;
         [SerializeField] private Ease easeType = Ease.InOutCubic;
-        private bool graphServOnA = true;
 
         private void OnEnable()
         {
@@ -47,13 +51,13 @@ namespace TennisMatch
 
         private void Start()
         {
-            TeamAName.text = score.teamA_Name;
-            TeamBName.text = score.teamB_Name;
+            TeamAName.text = match.teamA_Player1;
+            TeamBName.text = match.teamB_Player1;
         }
 
         private void Update()
         {
-            switch (score.teamA_RoundPoint)
+            switch (match.teamA_Score.point)
             {
                 case 0:
                     TeamA_Score.text = "0";
@@ -75,7 +79,7 @@ namespace TennisMatch
                     break;
             }
 
-            switch (score.teamB_RoundPoint)
+            switch (match.teamB_Score.point)
             {
                 case 0:
                     TeamB_Score.text = "0";
@@ -98,18 +102,18 @@ namespace TennisMatch
             }
 
 
-            TeamA_Set1.text = score.teamA_PointPerSet[0].ToString();
-            TeamB_Set1.text = score.teamB_PointPerSet[0].ToString();
+            TeamA_Set1.text = match.teamA_Score.gamePerSet[1].ToString();
+            TeamB_Set1.text = match.teamB_Score.gamePerSet[1].ToString();
 
-            if (score.partySet >= 2)
+            if (match.MatchSetNumber >= 2)
             {
-                TeamA_Set2.text = score.teamA_PointPerSet[1].ToString();
-                TeamB_Set2.text = score.teamB_PointPerSet[1].ToString();
+                TeamA_Set2.text = match.teamA_Score.gamePerSet[2].ToString();
+                TeamB_Set2.text = match.teamB_Score.gamePerSet[2].ToString();
 
-                if (score.partySet >= 3)
+                if (match.MatchSetNumber >= 3)
                 {
-                    TeamA_Set3.text = score.teamA_PointPerSet[2].ToString();
-                    TeamB_Set3.text = score.teamB_PointPerSet[2].ToString();
+                    TeamA_Set3.text = match.teamA_Score.gamePerSet[3].ToString();
+                    TeamB_Set3.text = match.teamB_Score.gamePerSet[3].ToString();
                 }
                 else
                 {
@@ -122,15 +126,13 @@ namespace TennisMatch
                 TeamA_Set2.text = "";
                 TeamB_Set2.text = "";
             }
-
-            graphServOnA = score.TeamA_haveService;
         }
 
         private void ServiceChange()
         {
             float delay = 0.02f;
 
-            if (score.TeamA_haveService)
+            if (match.teamA_HaveService)
             {
                 ball.DOAnchorPosY(ballTeamAPos, changeServDur).SetEase(easeType);
 

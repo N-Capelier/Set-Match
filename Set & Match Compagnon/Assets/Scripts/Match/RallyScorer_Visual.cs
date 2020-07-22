@@ -10,19 +10,17 @@ namespace TennisMatch
     public class RallyScorer_Visual : MonoBehaviour
     {
         [Header("Component")]
+        [SerializeField] private RallyScorer rally;
+        [Space(10)]
         [SerializeField] private RectTransform jeton;
         [SerializeField] private PartyScore score;
-        private RallyScorer rally;
 
         [Header("Variable")]
         [SerializeField] private float moveDuration = 0.5f;
         [SerializeField] private Ease easeType = Ease.InOutCubic;
         [SerializeField] float[] jetonPose = new float[7];
 
-        private void Awake()
-        {
-            rally = RallyScorer.Instance;
-        }
+
 
         private void OnEnable()
         {

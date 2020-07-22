@@ -6,16 +6,6 @@ namespace TennisMatch
     /// <summary>
     /// ARD
     /// </summary>
-    [Serializable]
-    public struct Team
-    {
-        public string name;
-        public bool duo;
-    }
-
-    /// <summary>
-    /// ARD
-    /// </summary>
     public class TurnManager : MonoBehaviour
     {
         [Header("Component")]
@@ -23,11 +13,7 @@ namespace TennisMatch
         [SerializeField] private PartyScore partyScore;
 
         [Header("Variable")]
-        public Team TeamA;
-        public Team TeamB;
-
-        public bool teamA_turn;
-        public bool teamA_serving;
+        [SerializeField] private MatchData match;
 
         private void OnEnable()
         {
@@ -46,26 +32,24 @@ namespace TennisMatch
 
         }
 
-        private void Update()
-        {
-            teamA_serving = partyScore.TeamA_haveService;
-        }
-
         public void OnExchange()
         {
-            teamA_turn = !teamA_turn;
+            match.teamA_Turn = !match.teamA_Turn;
         }
+
         private void OnResetGame()
         {
-            if (partyScore.TeamA_haveService)
+            //Changement de serveur
+            match.teamA_HaveService = !match.teamA_HaveService;
+            
+            //Au tour du serveur
+            if (match.teamA_HaveService)
             {
-                teamA_serving = true;
-                teamA_serving = teamA_turn;
+                match.teamA_Turn = match.teamA_HaveService;
             }
             else
             {
-                teamA_serving = false;
-                teamA_serving = teamA_turn;
+                match.teamA_Turn = match.teamA_HaveService;
             }
         }
     

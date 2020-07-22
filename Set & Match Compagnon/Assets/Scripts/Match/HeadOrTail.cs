@@ -7,7 +7,7 @@ namespace TennisMatch
     /// <summary>
     /// ARD
     /// </summary>
-    public class HeadOrTail : Singleton<HeadOrTail>
+    public class HeadOrTail : MonoBehaviour
     {
         [Header("Coin Button"), SerializeField]
         private Button coinButton;
@@ -19,11 +19,11 @@ namespace TennisMatch
         [SerializeField] private Toggle firstPlayerTail, secondPlayerHead, secondPlayerTail;
 
         [Header("Variable")]
-        public bool havelauch = false;
-        public bool result_Head = true;
+        [SerializeField] private MatchData match;
         [Space(10)]
-        public bool teamA_Head = true;
-        public bool teamA_Win = true;
+        public bool haveBeenlauch = false;
+        public bool coinResult_Head = true;
+        public bool teamA_ChooseHead = true;
 
         #region CoinLauchEvent
         //Event OnCoinLauch
@@ -37,12 +37,12 @@ namespace TennisMatch
         private void Update()
         {
             //Si la piece n'a pas été lancée
-            if (!havelauch) 
+            if (!haveBeenlauch) 
             {
                 //Team A Head and Team B Tail
                 if (firstPlayerHead.isOn & secondPlayerTail.isOn)
                 {
-                    teamA_Head = true;
+                    teamA_ChooseHead = true;
 
                     coinButton.interactable = true;
                 }
@@ -50,7 +50,7 @@ namespace TennisMatch
                 //Team A Tail and Team B Head
                 if (firstPlayerHead.isOn & secondPlayerTail.isOn || firstPlayerTail.isOn & secondPlayerHead.isOn)
                 {
-                    teamA_Head = false;
+                    teamA_ChooseHead = false;
 
                     coinButton.interactable = true;
                 }
@@ -62,7 +62,7 @@ namespace TennisMatch
             }
             
             //Peut on appuyer
-            if (havelauch)
+            if (haveBeenlauch)
             {
                 startMatchButton.interactable = true;
             }
@@ -77,34 +77,42 @@ namespace TennisMatch
             // 0-1-2-3-4 means Head win & 5-6-7-8-9 means Tail win
             if (UnityEngine.Random.Range(0, 10) < 5)//Head Win 
             {
-                result_Head = true;
+                coinResult_Head = true;
 
-                if (teamA_Head)
+                if (teamA_ChooseHead)
                 {
-                    teamA_Win = true;
+                    match.teamA_StartServing = true;
+                    match.teamA_HaveService = true;
+                    match.teamA_Turn = true;
                 }
                 else
                 {
-                    teamA_Win = false;
+                    match.teamA_StartServing = false;
+                    match.teamA_HaveService = false;
+                    match.teamA_Turn = false;
                 }
             }
             else //Tail Win
             {
-                result_Head = false;
+                coinResult_Head = false;
 
-                if (teamA_Head)
+                if (teamA_ChooseHead)
                 {
-                    teamA_Win = false;
+                    match.teamA_StartServing = false;
+                    match.teamA_HaveService = false;
+                    match.teamA_Turn = false;
                 }
                 else
                 {
-                    teamA_Win = true;
+                    match.teamA_StartServing = true;
+                    match.teamA_HaveService = true;
+                    match.teamA_Turn = true;
                 }
             }
             
             CoinLauch();
-            
-            havelauch = true;
+
+            haveBeenlauch = true;
         }
 
     }

@@ -1,7 +1,4 @@
 ﻿using Player;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using UnityEngine;
 
 namespace TennisMatch
@@ -32,7 +29,7 @@ namespace TennisMatch
     /// <summary>
     /// NCO
     /// </summary>
-    public class MatchData
+    public class MatchDataComplete
     {
         #region Variables
 
@@ -46,7 +43,7 @@ namespace TennisMatch
 
         #region Constructors
 
-        public MatchData(PlayerID teamA, PlayerID teamB)
+        public MatchDataComplete(PlayerID teamA, PlayerID teamB)
         {
             this.teamA = new PlayerScore(teamA);
             this.teamB = new PlayerScore(teamB);

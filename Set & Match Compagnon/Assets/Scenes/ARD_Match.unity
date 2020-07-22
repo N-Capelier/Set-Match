@@ -1154,7 +1154,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &48710413
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1210,6 +1210,7 @@ MonoBehaviour:
   partyScore: {fileID: 108645133}
   teamA: {fileID: 638302699}
   teamB: {fileID: 999343940}
+  match: {fileID: 0}
   teamAPos: {x: -625, y: 180}
   centerPos: {x: 0, y: 225}
   teamBPos: {x: 625, y: 180}
@@ -1231,14 +1232,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rallyScoreur: {fileID: 361529504}
   partyScore: {fileID: 108645133}
-  TeamA:
-    name: 
-    duo: 0
-  TeamB:
-    name: 
-    duo: 0
-  teamA_turn: 0
-  teamA_serving: 0
+  match: {fileID: 0}
 --- !u!1 &51121026
 GameObject:
   m_ObjectHideFlags: 0
@@ -2611,6 +2605,7 @@ MonoBehaviour:
   TeamB_Set1: {fileID: 15034521}
   TeamB_Set2: {fileID: 1853252378}
   TeamB_Set3: {fileID: 899537969}
+  match: {fileID: 0}
   focusDur: 1
   changeServDur: 1
   ballTeamAPos: 100
@@ -2630,17 +2625,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rally: {fileID: 361529504}
   headOrTail: {fileID: 902997122}
-  teamA_Name: AlphaPlayer
-  teamB_Name: BetaPlayer
-  teamA_RoundPoint: 0
-  teamB_RoundPoint: 0
-  teamA_PointPerSet: 000000000000000000000000
-  teamB_PointPerSet: 000000000000000000000000
-  TeamA_SetWin: 0
-  TeamB_SetWin: 0
-  actualSet: 0
-  partySet: 3
-  TeamA_haveService: 1
+  match: {fileID: 0}
 --- !u!1 &121022760
 GameObject:
   m_ObjectHideFlags: 0
@@ -6027,6 +6012,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df602463bc7232f41bef0ee554d2c2e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  match: {fileID: 0}
   rallyValue: 0
 --- !u!114 &361529505
 MonoBehaviour:
@@ -6040,6 +6026,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09a79112633caa248aad408e36243ebd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rally: {fileID: 0}
   jeton: {fileID: 72910188}
   score: {fileID: 108645133}
   moveDuration: 1
@@ -7888,7 +7875,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: -1
+  m_firstOverflowCharacterIndex: 0
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -10411,6 +10398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1e7bb7a673431d4097d468f0357d39f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  headOrTail: {fileID: 0}
   coin: {fileID: 902997118}
   coinText: {fileID: 1182420786}
   launchDuration: 2
@@ -10434,10 +10422,10 @@ MonoBehaviour:
   firstPlayerTail: {fileID: 128935695}
   secondPlayerHead: {fileID: 1410824933}
   secondPlayerTail: {fileID: 279993240}
-  havelauch: 0
-  result_Head: 1
-  teamA_Head: 1
-  teamA_Win: 1
+  match: {fileID: 0}
+  haveBeenlauch: 0
+  coinResult_Head: 1
+  teamA_ChooseHead: 1
 --- !u!114 &902997123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12622,7 +12610,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: -1
+  m_firstOverflowCharacterIndex: 0
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -15255,13 +15243,14 @@ GameObject:
   m_Component:
   - component: {fileID: 1410744495}
   - component: {fileID: 1410744496}
+  - component: {fileID: 1410744497}
   m_Layer: 0
   m_Name: -ParamMatch-
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1410744495
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15297,6 +15286,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   duration: 0.4
   easeType: 10
+--- !u!114 &1410744497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1410744494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5eb74a3a5e9a4e94583274f5ddbf977c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  match: {fileID: 11400000, guid: a293bcb46ddc69449bb40e656098b2b1, type: 2}
+  simpleMatch: {fileID: 857300555}
+  doubleMatch: {fileID: 538127066}
+  MatchInOneSet: {fileID: 2146927036}
+  MatchInTwoSet: {fileID: 41467407}
+  MatchInThreeSet: {fileID: 845127280}
 --- !u!1 &1410824932
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,6 +14,9 @@ namespace TennisMatch
         [Space(10)]
         [SerializeField] private RectTransform teamA;
         [SerializeField] private RectTransform teamB;
+
+        [Header("Variable")]
+        [SerializeField] private MatchData match;
         [Space(10)]
         [SerializeField] private Vector2 teamAPos;
         [SerializeField] private Vector2 centerPos;
@@ -44,7 +47,7 @@ namespace TennisMatch
 
         public void OnExchange()
         {
-            if (turnManager.teamA_turn)
+            if (match.teamA_Turn)
             {
                 TeamATurn();
             }
@@ -55,7 +58,7 @@ namespace TennisMatch
         }
         private void OnResetGame()
         {
-            if (partyScore.TeamA_haveService)
+            if (match.teamA_Turn)
             {
                 TeamATurn();
             }

@@ -26,9 +26,10 @@ namespace TennisMatch
     /// <summary>
     /// ARD
     /// </summary>
-    public class RallyScorer : Singleton<RallyScorer>
+    public class RallyScorer : MonoBehaviour
     {
         [Header("Variable")]
+        [SerializeField] private MatchData match;
         [Range(-3, 3)] public int rallyValue = 0;
         public List<Move> moveHistory = new List<Move>();
 

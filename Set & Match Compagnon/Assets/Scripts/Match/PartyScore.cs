@@ -14,22 +14,7 @@ namespace TennisMatch
         [SerializeField] private HeadOrTail headOrTail;
 
         [Header("Variable")]
-        [SerializeField] public string teamA_Name;
-        [SerializeField] public string teamB_Name;
-        [Space(15)]
-        public int teamA_RoundPoint = 0;
-        public int teamB_RoundPoint = 0;
-        [Space(15)]
-        public int[] teamA_PointPerSet = new int[3] { 0, 0, 0 };
-        public int[] teamB_PointPerSet = new int[3] { 0, 0, 0 };
-        [Space(15)]
-        public int TeamA_SetWin = 0;
-        public int TeamB_SetWin = 0;
-        [Space(15)]
-        [Range(0, 3)] public int actualSet = 0;
-        [Range(0, 3)] public int partySet = 3;
-        [Space(15)]
-        public bool TeamA_haveService = true;
+        [SerializeField] private MatchData match;
 
         #region Events
         public event Action onTeamA_PointMarked;
@@ -72,43 +57,39 @@ namespace TennisMatch
 
         private void ResetRound()
         {
-            teamA_RoundPoint = 0;
-            teamB_RoundPoint = 0;
-        }
-        private void ServiceRotate()
-        {
-            TeamA_haveService = !TeamA_haveService;
+            match.teamA_Score.point = 0;
+            match.teamB_Score.point = 0;
         }
 
         private void OnTeamA_PointMarked()
         {
             //Si on est a 40 est que l'on marque
-            if (teamA_RoundPoint + 1 > 3)
+            if (match.teamA_Score.point + 1 > 3)
             {
                 //Team adv à l'avantage
-                if (teamB_RoundPoint == 4)
+                if (match.teamB_Score.point == 4)
                 {
                     //Les deux reviennent à 40
-                    teamA_RoundPoint = 3;
-                    teamB_RoundPoint = 3;
+                    match.teamA_Score.point = 3;
+                    match.teamB_Score.point = 3;
                 }
                 else
                 //Team marquante a avantage              
-                if (teamA_RoundPoint == 4)
+                if (match.teamA_Score.point == 4)
                 {
                     TeamA_GameMarked();
                 }
                 else
                 //Team adv a 40              
-                if (teamB_RoundPoint == 3)
+                if (match.teamB_Score.point == 3)
                 {
                     //Avantage pris
-                    teamA_RoundPoint = 4;
+                    match.teamA_Score.point = 4;
                 }
                 //Team adv en dessous de 40
                 else
                 {
-                    teamA_RoundPoint = 3;
+                    match.teamA_Score.point = 3;
 
                     TeamA_GameMarked();
                 }
@@ -116,38 +97,38 @@ namespace TennisMatch
             //Si on a pas encore atteind 40
             else
             {
-                teamA_RoundPoint++;
+                match.teamA_Score.point++;
             }
         }
         private void OnTeamB_PointMarked()
         {
             //Si on est a 40 est que l'on marque
-            if (teamB_RoundPoint + 1 > 3)
+            if (match.teamB_Score.point + 1 > 3)
             {
                 //Team adv à l'avantage
-                if (teamA_RoundPoint == 4)
+                if (match.teamA_Score.point == 4)
                 {
                     //Les deux reviennent à 40
-                    teamA_RoundPoint = 3;
-                    teamB_RoundPoint = 3;
+                    match.teamA_Score.point = 3;
+                    match.teamB_Score.point = 3;
                 }
                 else                
                 //Team marquante a avantage              
-                if (teamB_RoundPoint == 4)
+                if (match.teamB_Score.point == 4)
                 {
                     TeamB_GameMarked();
                 }
                 else
                 //Team adv a 40              
-                if (teamA_RoundPoint == 3)
+                if (match.teamA_Score.point == 3)
                 {
                     //Avantage pris
-                    teamB_RoundPoint = 4;
+                    match.teamB_Score.point = 4;
                 }
                 //Team adv en dessous de 40
                 else
                 {
-                    teamB_RoundPoint = 3;
+                    match.teamB_Score.point = 3;
 
                     TeamB_GameMarked();
                 }
@@ -155,40 +136,38 @@ namespace TennisMatch
             //Si on a pas encore atteind 40
             else
             {
-                teamB_RoundPoint++;
+                match.teamB_Score.point++;
             }
         }
 
         private void OnTeamA_GameMarked()
         {
-            teamA_PointPerSet[actualSet]++;
+            match.teamA_Score.gamePerSet[match.currentSet]++;
 
-            if (teamA_PointPerSet[actualSet] > 2)
+            if (match.teamA_Score.gamePerSet[match.currentSet] > 2)
             {
                 SetMarked();
             }
 
-            ServiceRotate();
             ResetRound();
         }
         private void OnTeamB_GameMarked()
         {
-            teamB_PointPerSet[actualSet]++;
-            
-            if (teamB_PointPerSet[actualSet] > 2)
+            match.teamB_Score.gamePerSet[match.currentSet]++;
+
+            if (match.teamB_Score.gamePerSet[match.currentSet] > 2)
             {
                 SetMarked();
             }
 
-            ServiceRotate();
             ResetRound();
         }
 
         private void OnSetMarked()
         {
-            if(actualSet +1 < partySet)
+            if(match.currentSet + 1 < match.MatchSetNumber)
             {
-                actualSet++;
+                match.currentSet++;
             }
             else
             {
