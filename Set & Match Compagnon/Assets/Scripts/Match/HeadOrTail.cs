@@ -1,5 +1,4 @@
-﻿using Player;
-using System;
+﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,7 +20,10 @@ namespace TennisMatch
 
         [Header("Variable")]
         public bool havelauch = false;
-        public bool headWin = false;
+        public bool result_Head = true;
+        [Space(10)]
+        public bool teamA_Head = true;
+        public bool teamA_Win = true;
 
         #region CoinLauchEvent
         //Event OnCoinLauch
@@ -34,72 +36,75 @@ namespace TennisMatch
 
         private void Update()
         {
-            if(firstPlayerHead.isOn & secondPlayerTail.isOn || firstPlayerTail.isOn & secondPlayerHead.isOn)
+            //Si la piece n'a pas été lancée
+            if (!havelauch) 
             {
-                coinButton.interactable = true;
-            }
-            else
-            {
-                coinButton.interactable = false;
-            }
+                //Team A Head and Team B Tail
+                if (firstPlayerHead.isOn & secondPlayerTail.isOn)
+                {
+                    teamA_Head = true;
 
-            if (havelauch && !startMatchButton.interactable)
+                    coinButton.interactable = true;
+                }
+                else
+                //Team A Tail and Team B Head
+                if (firstPlayerHead.isOn & secondPlayerTail.isOn || firstPlayerTail.isOn & secondPlayerHead.isOn)
+                {
+                    teamA_Head = false;
+
+                    coinButton.interactable = true;
+                }
+                //Haven't make choice
+                else
+                {
+                    coinButton.interactable = false;
+                }
+            }
+            
+            //Peut on appuyer
+            if (havelauch)
             {
                 startMatchButton.interactable = true;
             }
-            else 
-            if(!havelauch && startMatchButton.interactable)
+            else
             {
                 startMatchButton.interactable = false;
             }
-
         }
 
-        public void SimplyfyHeadOrTailLaunch()
+        public void HeadOrTailLaunch()
         {
-            CoinLauch();
-
             // 0-1-2-3-4 means Head win & 5-6-7-8-9 means Tail win
             if (UnityEngine.Random.Range(0, 10) < 5)//Head Win 
             {
-                headWin = true;
+                result_Head = true;
+
+                if (teamA_Head)
+                {
+                    teamA_Win = true;
+                }
+                else
+                {
+                    teamA_Win = false;
+                }
             }
             else //Tail Win
             {
-                headWin = false;
-            }
-            havelauch = true;
-        }
+                result_Head = false;
 
-        public void HeadOrTailLaunch(PlayerScore HeadTeam, PlayerScore TailTeam)
-        {
+                if (teamA_Head)
+                {
+                    teamA_Win = false;
+                }
+                else
+                {
+                    teamA_Win = true;
+                }
+            }
+            
             CoinLauch();
-
-            // 0-1-2-3-4 means Head win & 5-6-7-8-9 means Tail win
-            if (UnityEngine.Random.Range(0, 10) < 5)//Head Win 
-            {
-                PlayerScoreUpdate(HeadTeam, TailTeam);
-                headWin = true;
-            }
-            else //Tail Win
-            {
-                PlayerScoreUpdate(TailTeam, HeadTeam);
-                headWin = false;
-            }
-
-
+            
             havelauch = true;
-        }
-
-        private void PlayerScoreUpdate(PlayerScore Winer, PlayerScore Loser)
-        {
-            //Team starting the Game saved in PlayerScore
-            Winer.startsTheParty = true;
-            Loser.startsTheParty = false;
-
-            //Team serving saved in PlayerScore
-            Winer.isServing = true;
-            Loser.isServing = false;
         }
 
     }

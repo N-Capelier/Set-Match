@@ -57,7 +57,7 @@ namespace TennisMatch
             yield return new WaitForSecondsRealtime(duration * 0.5f);
 
             //Affiche le résultat
-            coinText.text = headOrTail.headWin? "Head" : "Tail";
+            coinText.text = headOrTail.result_Head ? "Head" : "Tail";
 
             yield return null;
         }

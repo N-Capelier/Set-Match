@@ -1,5 +1,4 @@
-﻿using Player;
-using System;
+﻿using System;
 using UnityEngine;
 using System.Collections.Generic;
 
@@ -75,7 +74,7 @@ namespace TennisMatch
             }
         }
 
-        private void ResetRally()
+        public void ResetRally()
         {
             rallyValue = 0;
         }

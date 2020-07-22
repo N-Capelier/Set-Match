@@ -9,9 +9,9 @@ namespace TennisMatch
 {
     public class RallyScorer_Visual : MonoBehaviour
     {
-        [Header("Component"), SerializeField]
-        private RectTransform jeton;
-        [SerializeField] private Button scoreFocus, scoreUnfocus;
+        [Header("Component")]
+        [SerializeField] private RectTransform jeton;
+        [SerializeField] private PartyScore score;
         private RallyScorer rally;
 
         [Header("Variable")]
@@ -27,39 +27,20 @@ namespace TennisMatch
         private void OnEnable()
         {
             rally.onExchange += OnExchange;
-            rally.onPointMarked += OnPoint;
+            score.onTeamA_PointMarked += OnPointMarked;
+            score.onTeamB_PointMarked += OnPointMarked;
         }
         private void OnDisable()
         {
             rally.onExchange -= OnExchange;
-            rally.onPointMarked -= OnPoint;
-        }
+            score.onTeamA_PointMarked -= OnPointMarked;
+            score.onTeamB_PointMarked -= OnPointMarked;
 
+        }
 
         public void OnExchange()
         {
             MoveToPos();
-        }
-
-        public void OnPoint()
-        {
-            StopAllCoroutines();
-            StartCoroutine(ScoreTemporaryFocus(2f));
-        }
-
-        IEnumerator ScoreTemporaryFocus(float duration)
-        {
-            scoreFocus.onClick?.Invoke();
-
-            yield return new WaitForSecondsRealtime(duration * 0.5f);
-
-            MoveToPos();
-
-            yield return new WaitForSecondsRealtime(duration * 0.5f);
-
-            scoreUnfocus.onClick?.Invoke();
-
-            yield return null;
         }
 
         private void MoveToPos()
@@ -72,6 +53,21 @@ namespace TennisMatch
             Move lastMove = rally.moveHistory.First();
 
             jeton.DOAnchorPosX(targetPos, Mathf.Abs(lastMove.moveIncrement * 0.25f) + moveDuration, false).SetEase(easeType);
+        }
+    
+        private void OnPointMarked()
+        {
+            rally.ResetRally();
+             StartCoroutine(MoveToPosIn((rally.moveHistory.First().moveIncrement * 0.25f) + moveDuration));
+        }
+
+        IEnumerator MoveToPosIn(float duration)
+        {
+            yield return new WaitForSecondsRealtime(duration);
+
+            MoveToPos();
+
+            yield return null;
         }
     }
 }

@@ -4,9 +4,7 @@ using UnityEngine.UI;
 
 public class ScoreScreen : MonoBehaviour
 {
-    [Header("Parametre"), SerializeField]
-    float duration = 0.8f;
-    [Space(10)]
+    [Header("Parametre")]
     [SerializeField] float reductSize = 0.4f;
     [SerializeField] float focusSize = 1.25f;
     [SerializeField] Ease easeType = Ease.InOutCubic;
@@ -21,7 +19,7 @@ public class ScoreScreen : MonoBehaviour
         desact();
     }
 
-    public void CornerViewport()
+    public void CornerViewport(float duration)
     {
         menu.DOAnchorPosX(CornerPos.x, duration, false).SetEase(easeType);
         menu.DOAnchorPosY(CornerPos.y, duration, false).SetEase(easeType);
@@ -30,7 +28,7 @@ public class ScoreScreen : MonoBehaviour
         Invoke("desact", duration);
     }
 
-    public void CenterViewport()
+    public void CenterViewport(float duration)
     {
         fond.gameObject.SetActive(true);
         menu.DOAnchorPosX(0, duration, false).SetEase(easeType);

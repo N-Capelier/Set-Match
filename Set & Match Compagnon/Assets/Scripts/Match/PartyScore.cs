@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 
@@ -17,113 +14,193 @@ namespace TennisMatch
         [SerializeField] private HeadOrTail headOrTail;
 
         [Header("Variable")]
-        public string teamA_Name;
-        public string teamB_Name;
-
-        public int[] teamA_PointPerSet;
-        public int[] teamB_PointPerSet;
-
-        public bool[] TeamA_SetWin;
+        [SerializeField] public string teamA_Name;
+        [SerializeField] public string teamB_Name;
+        [Space(15)]
+        public int teamA_RoundPoint = 0;
+        public int teamB_RoundPoint = 0;
+        [Space(15)]
+        public int[] teamA_PointPerSet = new int[3] { 0, 0, 0 };
+        public int[] teamB_PointPerSet = new int[3] { 0, 0, 0 };
+        [Space(15)]
+        public int TeamA_SetWin = 0;
+        public int TeamB_SetWin = 0;
+        [Space(15)]
+        [Range(0, 3)] public int actualSet = 0;
+        [Range(0, 3)] public int partySet = 3;
+        [Space(15)]
         public bool TeamA_haveService = true;
-
-        public int actualSet = 0;
-        public int partySet = 3;
 
         #region Events
         public event Action onTeamA_PointMarked;
         public event Action onTeamB_PointMarked;
-        public event Action onTeamA_SetMarked;
-        public event Action onTeamB_SetMarked;
+        public event Action onTeamA_GameMarked;
+        public event Action onTeamB_GameMarked;
+        public event Action onSetMarked;
         public event Action onPartyEnd;
 
         public void TeamA_PointMarked() => onTeamA_PointMarked?.Invoke();
         public void TeamB_PointMarked() => onTeamB_PointMarked?.Invoke();
-        public void TeamA_SetMarked() => onTeamA_SetMarked?.Invoke();
-        public void TeamB_SetMarked() => onTeamB_SetMarked?.Invoke();
+        public void TeamA_GameMarked() => onTeamA_GameMarked?.Invoke();
+        public void TeamB_GameMarked() => onTeamB_GameMarked?.Invoke();
+        public void SetMarked() => onSetMarked?.Invoke();
+        public void EndGame() => onPartyEnd?.Invoke();
         #endregion
 
         private void Awake()
         {
-            ResetScore();
+            ResetRound();
         }
         private void OnEnable()
         {
             onTeamA_PointMarked += OnTeamA_PointMarked;
             onTeamB_PointMarked += OnTeamB_PointMarked;
-            onTeamA_SetMarked += OnTeamA_SetMarked;
-            onTeamB_SetMarked += OnTeamB_SetMarked;
+            onTeamA_GameMarked += OnTeamA_GameMarked;
+            onTeamB_GameMarked += OnTeamB_GameMarked;
+            onSetMarked += OnSetMarked;
+            onPartyEnd += OnEndGame;
         }
         private void OnDisable()
         {
             onTeamA_PointMarked -= OnTeamA_PointMarked;
             onTeamB_PointMarked -= OnTeamB_PointMarked;
-            onTeamA_SetMarked -= OnTeamA_SetMarked;
-            onTeamB_SetMarked -= OnTeamB_SetMarked;
+            onTeamA_GameMarked -= OnTeamA_GameMarked;
+            onTeamB_GameMarked -= OnTeamB_GameMarked;
+            onSetMarked -= OnSetMarked;
+            onPartyEnd -= OnEndGame;
         }
 
-        private void ResetScore()
+        private void ResetRound()
         {
-            teamA_Name = "TeamKarp";
-            teamB_Name = "TeamNico";
-
-            for (int i = 0; i < teamA_PointPerSet.Length; i++)
-            {
-                teamA_PointPerSet[i] = 0;
-                teamB_PointPerSet[i] = 0;
-            }
+            teamA_RoundPoint = 0;
+            teamB_RoundPoint = 0;
+        }
+        private void ServiceRotate()
+        {
+            TeamA_haveService = !TeamA_haveService;
         }
 
         private void OnTeamA_PointMarked()
         {
-            TeamMarkedPoint(teamA_PointPerSet, teamB_PointPerSet);
-        }
-
-        private void OnTeamB_PointMarked()
-        {
-            TeamMarkedPoint(teamB_PointPerSet, teamA_PointPerSet);
-        }
-
-        private void OnTeamA_SetMarked()
-        {
-
-        }
-
-        private void OnTeamB_SetMarked()
-        {
-
-        }
-    
-        private void TeamMarkedPoint(int[] teamHowMarked, int[] teamAdv)
-        {
             //Si on est a 40 est que l'on marque
-            if (teamHowMarked[actualSet] + 1 > 4)
+            if (teamA_RoundPoint + 1 > 3)
             {
                 //Team adv à l'avantage
-                if (teamAdv[actualSet] == 5)
+                if (teamB_RoundPoint == 4)
                 {
                     //Les deux reviennent à 40
-                    teamA_PointPerSet[actualSet] = 4;
-                    teamB_PointPerSet[actualSet] = 4;
+                    teamA_RoundPoint = 3;
+                    teamB_RoundPoint = 3;
+                }
+                else
+                //Team marquante a avantage              
+                if (teamA_RoundPoint == 4)
+                {
+                    TeamA_GameMarked();
                 }
                 else
                 //Team adv a 40              
-                if (teamAdv[actualSet] == 4)
+                if (teamB_RoundPoint == 3)
                 {
                     //Avantage pris
-                    teamA_PointPerSet[actualSet] = 5;
+                    teamA_RoundPoint = 4;
                 }
                 //Team adv en dessous de 40
                 else
                 {
-                    teamA_PointPerSet[actualSet] = 5;
-                    TeamA_SetMarked();
+                    teamA_RoundPoint = 3;
+
+                    TeamA_GameMarked();
                 }
             }
             //Si on a pas encore atteind 40
             else
             {
-                teamA_PointPerSet[actualSet]++;
+                teamA_RoundPoint++;
             }
         }
+        private void OnTeamB_PointMarked()
+        {
+            //Si on est a 40 est que l'on marque
+            if (teamB_RoundPoint + 1 > 3)
+            {
+                //Team adv à l'avantage
+                if (teamA_RoundPoint == 4)
+                {
+                    //Les deux reviennent à 40
+                    teamA_RoundPoint = 3;
+                    teamB_RoundPoint = 3;
+                }
+                else                
+                //Team marquante a avantage              
+                if (teamB_RoundPoint == 4)
+                {
+                    TeamB_GameMarked();
+                }
+                else
+                //Team adv a 40              
+                if (teamA_RoundPoint == 3)
+                {
+                    //Avantage pris
+                    teamB_RoundPoint = 4;
+                }
+                //Team adv en dessous de 40
+                else
+                {
+                    teamB_RoundPoint = 3;
+
+                    TeamB_GameMarked();
+                }
+            }
+            //Si on a pas encore atteind 40
+            else
+            {
+                teamB_RoundPoint++;
+            }
+        }
+
+        private void OnTeamA_GameMarked()
+        {
+            teamA_PointPerSet[actualSet]++;
+
+            if (teamA_PointPerSet[actualSet] > 2)
+            {
+                SetMarked();
+            }
+
+            ServiceRotate();
+            ResetRound();
+        }
+        private void OnTeamB_GameMarked()
+        {
+            teamB_PointPerSet[actualSet]++;
+            
+            if (teamB_PointPerSet[actualSet] > 2)
+            {
+                SetMarked();
+            }
+
+            ServiceRotate();
+            ResetRound();
+        }
+
+        private void OnSetMarked()
+        {
+            if(actualSet +1 < partySet)
+            {
+                actualSet++;
+            }
+            else
+            {
+                EndGame();
+            }
+        }
+
+        private void OnEndGame()
+        {
+
+        }
+
+
     }
 }
