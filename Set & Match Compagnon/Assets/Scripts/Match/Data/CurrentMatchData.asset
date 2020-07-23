@@ -12,20 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac00a91911654cb40a48b83b65f1379c, type: 3}
   m_Name: CurrentMatchData
   m_EditorClassIdentifier: 
-  teamA_Player1: PlayerA1
-  teamB_Player1: PlayerB1
+  teamA_Player1: AlphaPlayer
+  teamB_Player1: BetaPlayer
   doubleMatch: 0
-  teamA_Player2: PlayerA2
-  teamB_Player2: PlayerB2
+  teamA_Player2: Alpha2Player
+  teamB_Player2: Beta2Player
   teamA_Score:
     point: 0
-    gamePerSet: 000000000500000000000000
+    gamePerSet: 000000000000000000000000
   teamB_Score:
     point: 0
-    gamePerSet: 000000000700000000000000
+    gamePerSet: 000000000000000000000000
   currentSet: 1
-  MatchSetNumber: 2
-  teamA_StartServing: 0
+  MatchSetNumber: 3
+  teamA_StartServing: 1
   teamA_HaveService: 0
   teamA_Turn: 0
   turnCount: 0

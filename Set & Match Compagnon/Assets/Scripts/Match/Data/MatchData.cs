@@ -33,17 +33,17 @@ namespace TennisMatch
     public class MatchData : ScriptableObject
     {
         [Header("Team Informations")]
-        public string teamA_Player1 = "PlayerA1";
-        public string teamB_Player1 = "PlayerB1";
+        public string teamA_Player1 = "AlphaPlayer";
+        public string teamB_Player1 = "BetaPlayer";
         [Space(5)]
         //Match Simple ou Double
         public bool doubleMatch = false;
         [Space(5)]
-        public string teamA_Player2 = "PlayerA2";
-        public string teamB_Player2 = "PlayerB2";
+        public string teamA_Player2 = "Alpha2Player";
+        public string teamB_Player2 = "Beta2Player";
         [Space(25)]
-        public Score teamA_Score = new Score(true);
-        public Score teamB_Score = new Score(true);
+        public Score teamA_Score = new Score(0, 0, 0, 0);
+        public Score teamB_Score = new Score(0, 0, 0, 0);
 
         [Header("Match Informations")]
         [Range(1, 3)] public int currentSet = 1;
@@ -60,28 +60,31 @@ namespace TennisMatch
         public int gameCount = 0;
         public int setCount = 0;
 
-        public void Reset()
+        /// <summary>
+        /// Clear all match information to default 
+        /// </summary>
+        public void Reboot()
         {
-         teamA_Player1 = "PlayerA1";
-         teamB_Player1 = "PlayerB1";
-         doubleMatch = false;
-         teamA_Player2 = "PlayerA2";
-         teamB_Player2 = "PlayerB2";
-        
-         teamA_Score = new Score(true);
-         teamB_Score = new Score(true);
+            teamA_Player1 = "AlphaPlayer";
+            teamB_Player1 = "BetaPlayer";
+            doubleMatch = false;
+            teamA_Player2 = "Alpha2Player";
+            teamB_Player2 = "Beta2Player";
 
-         currentSet = 1;
-         MatchSetNumber = 3;
+            teamA_Score = new Score(0, 0, 0, 0);
+            teamB_Score = new Score(0, 0, 0, 0);
 
-         teamA_StartServing = true;
-         teamA_HaveService = true;
-         teamA_Turn = true;
-        
-         turnCount = 0;
-         pointCount = 0;
-         gameCount = 0;
-         setCount = 0;
+            currentSet = 1;
+            MatchSetNumber = 3;
+
+            teamA_StartServing = true;
+            teamA_HaveService = true;
+            teamA_Turn = true;
+
+            turnCount = 0;
+            pointCount = 0;
+            gameCount = 0;
+            setCount = 0;
         }
     }
 }

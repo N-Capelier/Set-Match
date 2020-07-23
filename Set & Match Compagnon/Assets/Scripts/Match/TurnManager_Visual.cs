@@ -7,6 +7,9 @@ namespace TennisMatch
 {
     public class TurnManager_Visual : MonoBehaviour
     {
+        [Header("GameEvent")]
+        private MatchEvents matchEvents;
+
         [Header("Component")]
         [SerializeField] private TurnManager turnManager;
         [SerializeField] private RallyScorer rallyScoreur;
@@ -28,21 +31,21 @@ namespace TennisMatch
         [SerializeField] private float duration = 1f;
         [SerializeField] private Ease easeType = Ease.InOutCubic;
 
+        private void Awake() => matchEvents = MatchEvents.Instance;
+
         private void OnEnable()
         {
-            rallyScoreur.onExchange += OnExchange;
+            matchEvents.onMatchStart += OnExchange;
 
-            partyScore.onTeamA_GameMarked += OnResetGame;
-            partyScore.onTeamB_GameMarked += OnResetGame;
-
+            matchEvents.onExchange += OnExchange;
+            matchEvents.onGameMarked += OnResetGame;
         }
         private void OnDisable()
         {
-            rallyScoreur.onExchange -= OnExchange;
+            matchEvents.onMatchStart -= OnExchange;
 
-            partyScore.onTeamA_GameMarked += OnResetGame;
-            partyScore.onTeamB_GameMarked += OnResetGame;
-
+            matchEvents.onExchange -= OnExchange;
+            matchEvents.onGameMarked -= OnResetGame;
         }
 
         public void OnExchange()
@@ -58,7 +61,7 @@ namespace TennisMatch
         }
         private void OnResetGame()
         {
-            if (match.teamA_Turn)
+            if (match.teamA_HaveService)
             {
                 TeamATurn();
             }

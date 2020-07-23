@@ -9,6 +9,9 @@ namespace TennisMatch
     /// </summary>
     public class PartyScore : MonoBehaviour
     {
+        [Header("GameEvent")]
+        private MatchEvents matchEvents;
+
         [Header("Component")]
         [SerializeField] private RallyScorer rally;
         [SerializeField] private HeadOrTail headOrTail;
@@ -16,170 +19,187 @@ namespace TennisMatch
         [Header("Variable")]
         [SerializeField] private MatchData match;
 
-        #region Events
-        public event Action onTeamA_PointMarked;
-        public event Action onTeamB_PointMarked;
-        public event Action onTeamA_GameMarked;
-        public event Action onTeamB_GameMarked;
-        public event Action onSetMarked;
-        public event Action onPartyEnd;
+        private void Awake() => matchEvents = MatchEvents.Instance;
 
-        public void TeamA_PointMarked() => onTeamA_PointMarked?.Invoke();
-        public void TeamB_PointMarked() => onTeamB_PointMarked?.Invoke();
-        public void TeamA_GameMarked() => onTeamA_GameMarked?.Invoke();
-        public void TeamB_GameMarked() => onTeamB_GameMarked?.Invoke();
-        public void SetMarked() => onSetMarked?.Invoke();
-        public void EndGame() => onPartyEnd?.Invoke();
-        #endregion
-
-        private void Awake()
-        {
-            ResetRound();
-        }
         private void OnEnable()
         {
-            onTeamA_PointMarked += OnTeamA_PointMarked;
-            onTeamB_PointMarked += OnTeamB_PointMarked;
-            onTeamA_GameMarked += OnTeamA_GameMarked;
-            onTeamB_GameMarked += OnTeamB_GameMarked;
-            onSetMarked += OnSetMarked;
-            onPartyEnd += OnEndGame;
+            matchEvents.onMatchStart += ResetTeamsPoints;
+            matchEvents.onPointMarked += OnPointMarked;
+            matchEvents.onGameMarked += OnGameMarked;
+            matchEvents.onSetMarked += OnSetMarked;
         }
         private void OnDisable()
         {
-            onTeamA_PointMarked -= OnTeamA_PointMarked;
-            onTeamB_PointMarked -= OnTeamB_PointMarked;
-            onTeamA_GameMarked -= OnTeamA_GameMarked;
-            onTeamB_GameMarked -= OnTeamB_GameMarked;
-            onSetMarked -= OnSetMarked;
-            onPartyEnd -= OnEndGame;
-        }
+            matchEvents.onMatchStart -= ResetTeamsPoints;
+            matchEvents.onPointMarked -= OnPointMarked;
+            matchEvents.onGameMarked -= OnGameMarked;
+            matchEvents.onSetMarked -= OnSetMarked;
 
-        private void ResetRound()
+        }
+       
+        private void ResetTeamsPoints()
         {
             match.teamA_Score.point = 0;
             match.teamB_Score.point = 0;
         }
 
-        private void OnTeamA_PointMarked()
+        private void OnPointMarked()
         {
-            //Si on est a 40 est que l'on marque
-            if (match.teamA_Score.point + 1 > 3)
+            //Si l'équipe A a joué
+            if (match.teamA_Turn)
             {
-                //Team adv à l'avantage
-                if (match.teamB_Score.point == 4)
+                //Si on est a 40 est que l'on marque
+                if (match.teamA_Score.point + 1 > 3)
                 {
-                    //Les deux reviennent à 40
-                    match.teamA_Score.point = 3;
-                    match.teamB_Score.point = 3;
-                }
-                else
-                //Team marquante a avantage              
-                if (match.teamA_Score.point == 4)
-                {
-                    TeamA_GameMarked();
-                }
-                else
-                //Team adv a 40              
-                if (match.teamB_Score.point == 3)
-                {
-                    //Avantage pris
-                    match.teamA_Score.point = 4;
-                }
-                //Team adv en dessous de 40
-                else
-                {
-                    match.teamA_Score.point = 3;
+                    //Team adv à l'avantage
+                    if (match.teamB_Score.point == 4)
+                    {
+                        //Les deux reviennent à 40
+                        match.teamA_Score.point = 3;
+                        match.teamB_Score.point = 3;
+                    }
+                    else
+                    //Team marquante a avantage              
+                    if (match.teamA_Score.point == 4)
+                    {
+                        matchEvents.GameMarked();
+                    }
+                    else
+                    //Team adv a 40              
+                    if (match.teamB_Score.point == 3)
+                    {
+                        //Avantage pris
+                        match.teamA_Score.point = 4;
+                    }
+                    //Team adv en dessous de 40
+                    else
+                    {
+                        match.teamA_Score.point = 3;
 
-                    TeamA_GameMarked();
+                        matchEvents.GameMarked();
+                    }
                 }
+                //Si on a pas encore atteind 40
+                else
+                {
+                    match.teamA_Score.point++;
+                }
+
             }
-            //Si on a pas encore atteind 40
+            //Sinon l'équipe B a joué
             else
             {
-                match.teamA_Score.point++;
+                //Si on est a 40 est que l'on marque
+                if (match.teamB_Score.point + 1 > 3)
+                {
+                    //Team adv à l'avantage
+                    if (match.teamA_Score.point == 4)
+                    {
+                        //Les deux reviennent à 40
+                        match.teamA_Score.point = 3;
+                        match.teamB_Score.point = 3;
+                    }
+                    else
+                    //Team marquante a avantage              
+                    if (match.teamB_Score.point == 4)
+                    {
+                        matchEvents.GameMarked();
+                    }
+                    else
+                    //Team adv a 40              
+                    if (match.teamA_Score.point == 3)
+                    {
+                        //Avantage pris
+                        match.teamB_Score.point = 4;
+                    }
+                    //Team adv en dessous de 40
+                    else
+                    {
+                        match.teamB_Score.point = 3;
+
+                        matchEvents.GameMarked();
+                    }
+                }
+                //Si on a pas encore atteind 40
+                else
+                {
+                    match.teamB_Score.point++;
+                }
             }
         }
-        private void OnTeamB_PointMarked()
-        {
-            //Si on est a 40 est que l'on marque
-            if (match.teamB_Score.point + 1 > 3)
-            {
-                //Team adv à l'avantage
-                if (match.teamA_Score.point == 4)
-                {
-                    //Les deux reviennent à 40
-                    match.teamA_Score.point = 3;
-                    match.teamB_Score.point = 3;
-                }
-                else                
-                //Team marquante a avantage              
-                if (match.teamB_Score.point == 4)
-                {
-                    TeamB_GameMarked();
-                }
-                else
-                //Team adv a 40              
-                if (match.teamA_Score.point == 3)
-                {
-                    //Avantage pris
-                    match.teamB_Score.point = 4;
-                }
-                //Team adv en dessous de 40
-                else
-                {
-                    match.teamB_Score.point = 3;
 
-                    TeamB_GameMarked();
+        private void OnGameMarked()
+        {
+            //Si l'équipe A a joué
+            if (match.teamA_Turn)
+            {
+                match.teamA_Score.gamePerSet[match.currentSet - 1]++;
+
+                int teamA_SetScore = match.teamA_Score.gamePerSet[match.currentSet - 1];
+                int teamB_SetScore = match.teamB_Score.gamePerSet[match.currentSet - 1];
+
+                //Si on a atteind ou dépassé la limite du set
+                if (match.teamA_Score.gamePerSet[match.currentSet - 1] >= 3)
+                {
+                    //Si on est sur le dernier set et 
+                    if (match.currentSet >= match.MatchSetNumber)
+                    {
+                        //Si on a deux point d'écart avec l'adversaire
+                        if (teamA_SetScore > teamB_SetScore + 1)
+                        {
+                            matchEvents.SetMarked();
+                        }
+                    }
+                    else
+                    {
+                        matchEvents.SetMarked();
+                    }
                 }
             }
-            //Si on a pas encore atteind 40
+            //Sinon l'équipe B a joué
             else
             {
-                match.teamB_Score.point++;
+                match.teamB_Score.gamePerSet[match.currentSet - 1]++;
+
+                int teamA_SetScore = match.teamA_Score.gamePerSet[match.currentSet - 1];
+                int teamB_SetScore = match.teamB_Score.gamePerSet[match.currentSet - 1];
+
+                //Si on a atteind ou dépassé la limite du set
+                if (teamB_SetScore >= 3)
+                {
+                    //Si on est sur le dernier set
+                    if (match.currentSet >= match.MatchSetNumber)
+                    {
+                        //Si on a deux point d'écart avec l'adversaire
+                        if (teamB_SetScore > teamA_SetScore + 1)
+                        {
+                            matchEvents.SetMarked();
+                        }
+                    }
+                    else
+                    {
+                        matchEvents.SetMarked();
+                    }
+                }
             }
-        }
 
-        private void OnTeamA_GameMarked()
-        {
-            match.teamA_Score.gamePerSet[match.currentSet - 1]++;
-
-            if (match.teamA_Score.gamePerSet[match.currentSet - 1] > 2)
-            {
-                SetMarked();
-            }
-
-            ResetRound();
-        }
-        private void OnTeamB_GameMarked()
-        {
-            match.teamB_Score.gamePerSet[match.currentSet - 1]++;
-
-            if (match.teamB_Score.gamePerSet[match.currentSet - 1] > 2)
-            {
-                SetMarked();
-            }
-
-            ResetRound();
+            ResetTeamsPoints();
         }
 
         private void OnSetMarked()
         {
-            if(match.currentSet + 1 <= match.MatchSetNumber)
+            //Si on a atteint le dernier set
+            if(match.currentSet >= match.MatchSetNumber)
             {
-                match.currentSet++;
+                matchEvents.MatchEnd();
+                Debug.Log("EndOfTheMatch");
             }
             else
             {
-                EndGame();
+                match.currentSet++;
+                Debug.Log("Set");
             }
         }
-
-        private void OnEndGame()
-        {
-            Debug.Log("EndMatch");
-        }
-
 
     }
 }

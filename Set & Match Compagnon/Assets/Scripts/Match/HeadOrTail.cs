@@ -9,6 +9,9 @@ namespace TennisMatch
     /// </summary>
     public class HeadOrTail : MonoBehaviour
     {
+        [Header("GameEvent")]
+        [SerializeField] private MatchEvents matchEvents;
+
         [Header("Coin Button"), SerializeField]
         private Button coinButton;
         [Header("StartGame Button"), SerializeField]
@@ -16,7 +19,9 @@ namespace TennisMatch
 
         [Header("Toggles")]
         [SerializeField] private Toggle firstPlayerHead;
-        [SerializeField] private Toggle firstPlayerTail, secondPlayerHead, secondPlayerTail;
+        [SerializeField] private Toggle firstPlayerTail;
+        [SerializeField] private Toggle secondPlayerHead;
+        [SerializeField] private Toggle secondPlayerTail;
 
         [Header("Variable")]
         [SerializeField] private MatchData match;
@@ -25,14 +30,9 @@ namespace TennisMatch
         public bool coinResult_Head = true;
         public bool teamA_ChooseHead = true;
 
-        #region CoinLauchEvent
-        //Event OnCoinLauch
-        public event Action onCoinLauch;
-        public void CoinLauch()
-        {
-            onCoinLauch?.Invoke();
-        }
-        #endregion
+        private void Awake() => matchEvents = MatchEvents.Instance;
+        private void OnEnable() => matchEvents.onHeadOrTailLauch += OnHeadOrTailLaunch;
+        private void OnDisable() => matchEvents.onHeadOrTailLauch -= OnHeadOrTailLaunch;
 
         private void Update()
         {
@@ -72,7 +72,7 @@ namespace TennisMatch
             }
         }
 
-        public void HeadOrTailLaunch()
+        public void OnHeadOrTailLaunch()
         {
             // 0-1-2-3-4 means Head win & 5-6-7-8-9 means Tail win
             if (UnityEngine.Random.Range(0, 10) < 5)//Head Win 
@@ -109,8 +109,6 @@ namespace TennisMatch
                     match.teamA_Turn = true;
                 }
             }
-            
-            CoinLauch();
 
             haveBeenlauch = true;
         }

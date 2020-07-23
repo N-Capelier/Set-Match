@@ -9,6 +9,9 @@ namespace TennisMatch
 {
     public class RallyScorer_Visual : MonoBehaviour
     {
+        [Header("GameEvent")]
+        private MatchEvents matchEvents;
+
         [Header("Component")]
         [SerializeField] private RallyScorer rally;
         [Space(10)]
@@ -20,27 +23,36 @@ namespace TennisMatch
         [SerializeField] private Ease easeType = Ease.InOutCubic;
         [SerializeField] float[] jetonPose = new float[7];
 
-
+        private void Awake() => matchEvents = MatchEvents.Instance;
 
         private void OnEnable()
         {
-            rally.onExchange += OnExchange;
-            score.onTeamA_PointMarked += OnPointMarked;
-            score.onTeamB_PointMarked += OnPointMarked;
+            matchEvents.onExchange += OnExchange;
+            matchEvents.onPointMarked += OnPointMarked;
+            matchEvents.onGameMarked += OnGameMarked;
         }
         private void OnDisable()
         {
-            rally.onExchange -= OnExchange;
-            score.onTeamA_PointMarked -= OnPointMarked;
-            score.onTeamB_PointMarked -= OnPointMarked;
-
+            matchEvents.onExchange -= OnExchange;
+            matchEvents.onPointMarked -= OnPointMarked;
+            matchEvents.onGameMarked -= OnGameMarked;
         }
 
         public void OnExchange()
         {
             MoveToPos();
         }
-
+        public void OnPointMarked()
+        {
+            StopCoroutine(MoveToPosIn(moveDuration));
+            StartCoroutine(MoveToPosIn(moveDuration));
+        }
+        private void OnGameMarked()
+        {
+            StopCoroutine(MoveToPosIn(moveDuration));
+            StopCoroutine(MoveToPosIn((rally.moveHistory.First().moveIncrement * 0.25f) + moveDuration));
+            StartCoroutine(MoveToPosIn((rally.moveHistory.First().moveIncrement * 0.25f) + moveDuration));
+        }
         private void MoveToPos()
         {
             /// <summary>
@@ -51,12 +63,6 @@ namespace TennisMatch
             Move lastMove = rally.moveHistory.First();
 
             jeton.DOAnchorPosX(targetPos, Mathf.Abs(lastMove.moveIncrement * 0.25f) + moveDuration, false).SetEase(easeType);
-        }
-    
-        private void OnPointMarked()
-        {
-            rally.ResetRally();
-             StartCoroutine(MoveToPosIn((rally.moveHistory.First().moveIncrement * 0.25f) + moveDuration));
         }
 
         IEnumerator MoveToPosIn(float duration)

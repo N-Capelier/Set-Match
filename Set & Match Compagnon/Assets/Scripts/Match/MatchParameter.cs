@@ -14,11 +14,6 @@ namespace TennisMatch
         [SerializeField] private Toggle simpleMatch, doubleMatch;
         [SerializeField] private Toggle MatchInOneSet, MatchInTwoSet, MatchInThreeSet;
 
-        private void Start()
-        {
-            match.Reset();
-        }
-
         private void Update()
         {
             //Party Simple ou Double

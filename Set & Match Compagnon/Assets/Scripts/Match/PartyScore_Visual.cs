@@ -11,6 +11,9 @@ namespace TennisMatch
     /// </summary>
     public class PartyScore_Visual : MonoBehaviour
     {
+        [Header("GameEvent")]
+        private MatchEvents matchEvents;
+
         [Header("Component")]
         [SerializeField] private PartyScore score;
         [SerializeField] private ScoreScreen scoreScreen;
@@ -28,25 +31,24 @@ namespace TennisMatch
         [SerializeField] private TextMeshProUGUI TeamA_Set2, TeamA_Set3;
         [SerializeField] private TextMeshProUGUI TeamB_Set1, TeamB_Set2, TeamB_Set3;
 
-
         [Header("Variable")]
         [SerializeField] private MatchData match;
         [Space(10)]
+        [SerializeField] private bool baalInTeamA = true;
         [SerializeField] private float focusDur = 0.5f;
         [SerializeField] private float changeServDur = 1f;
         [SerializeField] private float ballTeamAPos, ballTeamBPos;
         [SerializeField] private Ease easeType = Ease.InOutCubic;
 
+        private void Awake() => matchEvents = MatchEvents.Instance;
+
         private void OnEnable()
         {
-            score.onTeamA_GameMarked += OnGameMarked;
-            score.onTeamB_GameMarked += OnGameMarked;
-
+            matchEvents.onGameMarked += OnGameMarked;
         }
         private void OnDisable()
         {
-            score.onTeamA_GameMarked -= OnGameMarked;
-            score.onTeamB_GameMarked -= OnGameMarked;
+            matchEvents.onGameMarked -= OnGameMarked;
         }
 
         private void Start()
@@ -125,6 +127,8 @@ namespace TennisMatch
             {
                 TeamA_Set2.text = "";
                 TeamB_Set2.text = "";
+                TeamA_Set3.text = "";
+                TeamB_Set3.text = "";
             }
         }
 
