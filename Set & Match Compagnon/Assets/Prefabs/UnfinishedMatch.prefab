@@ -923,7 +923,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: NicoLePGM
+  m_text: Player1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d15043521efc02c4fac6b27a79ca126f, type: 2}
   m_sharedMaterial: {fileID: -9129172024926852721, guid: d15043521efc02c4fac6b27a79ca126f,
@@ -993,7 +993,7 @@ MonoBehaviour:
   m_margin: {x: 10, y: 10, z: 10, w: 10}
   m_textInfo:
     textComponent: {fileID: 8429124985416783124}
-    characterCount: 9
+    characterCount: 7
     spriteCount: 0
     spaceCount: 0
     wordCount: 1
@@ -1394,7 +1394,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Arthurfu
+  m_text: Player2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d15043521efc02c4fac6b27a79ca126f, type: 2}
   m_sharedMaterial: {fileID: -9129172024926852721, guid: d15043521efc02c4fac6b27a79ca126f,
@@ -1464,7 +1464,7 @@ MonoBehaviour:
   m_margin: {x: 10, y: 10, z: 10, w: 10}
   m_textInfo:
     textComponent: {fileID: 8429124985460587204}
-    characterCount: 8
+    characterCount: 7
     spriteCount: 0
     spaceCount: 0
     wordCount: 1

@@ -102,18 +102,18 @@ namespace TennisMatch
             }
 
 
-            TeamA_Set1.text = match.teamA_Score.gamePerSet[1].ToString();
-            TeamB_Set1.text = match.teamB_Score.gamePerSet[1].ToString();
+            TeamA_Set1.text = match.teamA_Score.gamePerSet[0].ToString();
+            TeamB_Set1.text = match.teamB_Score.gamePerSet[0].ToString();
 
             if (match.MatchSetNumber >= 2)
             {
-                TeamA_Set2.text = match.teamA_Score.gamePerSet[2].ToString();
-                TeamB_Set2.text = match.teamB_Score.gamePerSet[2].ToString();
+                TeamA_Set2.text = match.teamA_Score.gamePerSet[1].ToString();
+                TeamB_Set2.text = match.teamB_Score.gamePerSet[1].ToString();
 
                 if (match.MatchSetNumber >= 3)
                 {
-                    TeamA_Set3.text = match.teamA_Score.gamePerSet[3].ToString();
-                    TeamB_Set3.text = match.teamB_Score.gamePerSet[3].ToString();
+                    TeamA_Set3.text = match.teamA_Score.gamePerSet[2].ToString();
+                    TeamB_Set3.text = match.teamB_Score.gamePerSet[2].ToString();
                 }
                 else
                 {

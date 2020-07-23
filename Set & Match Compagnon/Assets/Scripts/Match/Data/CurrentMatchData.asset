@@ -19,13 +19,15 @@ MonoBehaviour:
   teamB_Player2: PlayerB2
   teamA_Score:
     point: 0
-    gamePerSet: 000000000000000000000000
+    gamePerSet: 000000000500000000000000
   teamB_Score:
     point: 0
-    gamePerSet: 000000000000000000000000
-  teamA_StartServing: 1
-  teamA_HaveService: 1
-  teamA_Turn: 1
+    gamePerSet: 000000000700000000000000
+  currentSet: 1
+  MatchSetNumber: 2
+  teamA_StartServing: 0
+  teamA_HaveService: 0
+  teamA_Turn: 0
   turnCount: 0
   pointCount: 0
   gameCount: 0

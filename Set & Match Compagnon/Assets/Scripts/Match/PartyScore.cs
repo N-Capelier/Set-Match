@@ -142,9 +142,9 @@ namespace TennisMatch
 
         private void OnTeamA_GameMarked()
         {
-            match.teamA_Score.gamePerSet[match.currentSet]++;
+            match.teamA_Score.gamePerSet[match.currentSet - 1]++;
 
-            if (match.teamA_Score.gamePerSet[match.currentSet] > 2)
+            if (match.teamA_Score.gamePerSet[match.currentSet - 1] > 2)
             {
                 SetMarked();
             }
@@ -153,9 +153,9 @@ namespace TennisMatch
         }
         private void OnTeamB_GameMarked()
         {
-            match.teamB_Score.gamePerSet[match.currentSet]++;
+            match.teamB_Score.gamePerSet[match.currentSet - 1]++;
 
-            if (match.teamB_Score.gamePerSet[match.currentSet] > 2)
+            if (match.teamB_Score.gamePerSet[match.currentSet - 1] > 2)
             {
                 SetMarked();
             }
@@ -165,7 +165,7 @@ namespace TennisMatch
 
         private void OnSetMarked()
         {
-            if(match.currentSet + 1 < match.MatchSetNumber)
+            if(match.currentSet + 1 <= match.MatchSetNumber)
             {
                 match.currentSet++;
             }
@@ -177,7 +177,7 @@ namespace TennisMatch
 
         private void OnEndGame()
         {
-
+            Debug.Log("EndMatch");
         }
 
 

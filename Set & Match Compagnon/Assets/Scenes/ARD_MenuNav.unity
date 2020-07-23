@@ -2800,7 +2800,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56e21ed498481fe43a9b9a40c9d2f041, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToGo: ARD_Match
+  sceneToGo: ARD_NewMatch
 --- !u!224 &393848344 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8429124985598523241, guid: 4927e138d804b1941b3f819122094800,
@@ -9711,7 +9711,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: -1
+  m_firstOverflowCharacterIndex: 0
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -10467,7 +10467,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: -1
+  m_firstOverflowCharacterIndex: 0
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0

@@ -60,6 +60,28 @@ namespace TennisMatch
         public int gameCount = 0;
         public int setCount = 0;
 
+        public void Reset()
+        {
+         teamA_Player1 = "PlayerA1";
+         teamB_Player1 = "PlayerB1";
+         doubleMatch = false;
+         teamA_Player2 = "PlayerA2";
+         teamB_Player2 = "PlayerB2";
+        
+         teamA_Score = new Score(true);
+         teamB_Score = new Score(true);
 
+         currentSet = 1;
+         MatchSetNumber = 3;
+
+         teamA_StartServing = true;
+         teamA_HaveService = true;
+         teamA_Turn = true;
+        
+         turnCount = 0;
+         pointCount = 0;
+         gameCount = 0;
+         setCount = 0;
+        }
     }
 }
