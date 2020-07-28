@@ -11,11 +11,11 @@ namespace Player
     /// </summary>
     public class PlayerData
     {
-        MatchData[] currentMatches = new MatchData[20];
+        MatchDataUnfinished[] currentMatches = new MatchDataUnfinished[20];
 
         #region Methods
 
-        public MatchData LoadMatch(int matchID)
+        public MatchDataUnfinished LoadMatch(int matchID)
         {
             return currentMatches[matchID];
         }
@@ -35,7 +35,7 @@ namespace Player
             }
         }
 
-        public void AddMatch(MatchData match)
+        public void AddMatch(MatchDataUnfinished match)
         {
             //Look for empty space
             for(int i = 0; i < currentMatches.Length; i++)

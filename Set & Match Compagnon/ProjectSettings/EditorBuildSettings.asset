@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/ARD_MenuNav.unity
     guid: 2753a40aa736a5f4eb5e93bd2833f756
   - enabled: 1
-    path: Assets/Scenes/ARD_Match.unity
+    path: Assets/Scenes/ARD_NewMatch.unity
     guid: edcf7d665795e66408f624bed8dd7c83
   m_configObjects: {}
