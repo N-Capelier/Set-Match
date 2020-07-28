@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/PlayerClass.unity
+    path: Assets/Scenes/NCO_Dev/PlayerClass.unity
     guid: 64133c262de797046b3ab784e822184f
   m_configObjects: {}
