@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Player.Encryption;
 
 namespace Player
 {
@@ -15,11 +16,11 @@ namespace Player
         public readonly string surname;
         public readonly string username;
         public readonly string mail;
-        public readonly string password;
+        public readonly Password password;
 
         public Vector2 location;
         
-        public PlayerID(string name, string surname, string username, string mail, string password)
+        public PlayerID(string name, string surname, string username, string mail, Password password)
         {
             stats = new PlayerStats();
             data = new PlayerData();
@@ -28,7 +29,6 @@ namespace Player
             this.surname = surname;
             this.username = username;
             this.mail = mail;
-            password.Encrypt(GameManager.encryptKey);
             this.password = password;
             location = new Vector2();
         }
@@ -58,18 +58,18 @@ namespace Player
             //}
 
             //create ID and login
-            id = new PlayerID(name, surname, username, mail, password);
+            id = new PlayerID(name, surname, username, mail, PlayerPassword.CreateEncryptedPassword(password));
             Login(mail, password);
             return true;
         }
 
-        public void Login(string mail, string password)
+        public void Login(string mail, string inputPassword)
         {
-            //find corresponding mail in database
+            //PlayerID player;
+            //find corresponding mail in database and store playerID in player
 
             //Compare given password with database password (decrypted)
-            //if(password == serverPassword.Decrypt(GameManager.encryptKey))
-
+            //if(PlayerPassword.CreateEncryptedPassword(inputPassword, player.password.key).password == player.password.password)
 
             //Then log the player in
             isLoggedIn = true;
@@ -89,7 +89,7 @@ namespace Player
         {
             //Use this method only if the user's verification email code as been given
 
-            id = new PlayerID(id.name, id.surname, id.username, id.mail, newPassword);
+            id = new PlayerID(id.name, id.surname, id.username, id.mail, PlayerPassword.CreateEncryptedPassword(newPassword));
         }
 
         #endregion
