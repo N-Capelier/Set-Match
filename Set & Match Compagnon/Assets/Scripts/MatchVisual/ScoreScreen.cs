@@ -9,14 +9,13 @@ public class ScoreScreen : MonoBehaviour
     [SerializeField] float focusSize = 1.25f;
     [SerializeField] Ease easeType = Ease.InOutCubic;
     [SerializeField] Vector2 CornerPos;
-    [SerializeField] Color transpColor, opaqueColor;
     [SerializeField] Image fond;
     protected RectTransform menu;
 
     private void Awake()
     {
         menu = this.GetComponent<RectTransform>();
-        desact();
+        desactivation();
     }
 
     public void CornerViewport(float duration)
@@ -24,8 +23,8 @@ public class ScoreScreen : MonoBehaviour
         menu.DOAnchorPosX(CornerPos.x, duration, false).SetEase(easeType);
         menu.DOAnchorPosY(CornerPos.y, duration, false).SetEase(easeType);
         menu.DOScale(reductSize, duration).SetEase(easeType);
-        fond.DOColor(transpColor, duration).SetEase(easeType);
-        Invoke("desact", duration);
+        fond.DOColor(new Color(1,1,1,0), duration).SetEase(easeType);
+        Invoke("desactivation", duration);
     }
 
     public void CenterViewport(float duration)
@@ -34,10 +33,10 @@ public class ScoreScreen : MonoBehaviour
         menu.DOAnchorPosX(0, duration, false).SetEase(easeType);
         menu.DOAnchorPosY(0, duration, false).SetEase(easeType);
         menu.DOScale(focusSize, duration).SetEase(easeType);
-        fond.DOColor(opaqueColor, duration).SetEase(easeType);
+        fond.DOColor(Color.white, duration).SetEase(easeType);
     }
 
-    private void desact()
+    private void desactivation()
     {
         fond.gameObject.SetActive(false);
     }

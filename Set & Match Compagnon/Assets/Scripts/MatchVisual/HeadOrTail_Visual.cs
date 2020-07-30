@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using DG.Tweening;
@@ -26,8 +25,6 @@ namespace TennisMatch
         [SerializeField, Range(1,24)] private int flipNumber = 6;
 
         private void Awake() => matchEvents = MatchEvents.Instance;
-        private void OnEnable() => matchEvents.onHeadOrTailLauch += OnCoinLauch;
-        private void OnDisable() => matchEvents.onHeadOrTailLauch -= OnCoinLauch;
 
         public void OnCoinLauch()
         {

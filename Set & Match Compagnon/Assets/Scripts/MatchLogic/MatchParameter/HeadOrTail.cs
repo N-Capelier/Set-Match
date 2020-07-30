@@ -31,8 +31,6 @@ namespace TennisMatch
         public bool teamA_ChooseHead = true;
 
         private void Awake() => matchEvents = MatchEvents.Instance;
-        private void OnEnable() => matchEvents.onHeadOrTailLauch += OnHeadOrTailLaunch;
-        private void OnDisable() => matchEvents.onHeadOrTailLauch -= OnHeadOrTailLaunch;
 
         private void Update()
         {

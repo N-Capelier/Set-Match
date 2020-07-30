@@ -21,15 +21,13 @@ namespace TennisMatch
         [SerializeField] private RectTransform ball;
         [SerializeField] private RectTransform ballSadow1, ballSadow2, ballSadow3, ballSadow4, ballSadow5;
         [Space(15)]
-        [SerializeField] private TextMeshProUGUI TeamAName;
-        [SerializeField] private TextMeshProUGUI TeamBName;
+        [SerializeField] private TextMeshProUGUI aTeamName, bTeamName;
         [Space(15)]
-        [SerializeField] private TextMeshProUGUI TeamA_Score;
-        [SerializeField] private TextMeshProUGUI TeamB_Score;
+        [SerializeField] private TextMeshProUGUI aTeam_Score, bTeam_Score;
         [Space(15)]
-        [SerializeField] private TextMeshProUGUI TeamA_Set1;
-        [SerializeField] private TextMeshProUGUI TeamA_Set2, TeamA_Set3;
-        [SerializeField] private TextMeshProUGUI TeamB_Set1, TeamB_Set2, TeamB_Set3;
+        [SerializeField] private TextMeshProUGUI aTeam_Set1;
+        [SerializeField] private TextMeshProUGUI aTeam_Set2, aTeam_Set3;
+        [SerializeField] private TextMeshProUGUI bTeam_Set1, bTeam_Set2, bTeam_Set3;
 
         [Header("Variable")]
         [SerializeField] private MatchData match;
@@ -53,8 +51,8 @@ namespace TennisMatch
 
         private void Start()
         {
-            TeamAName.text = match.teamA_Player1;
-            TeamBName.text = match.teamB_Player1;
+            aTeamName.text = match.teamA_Player1;
+            bTeamName.text = match.teamB_Player1;
         }
 
         private void Update()
@@ -62,73 +60,73 @@ namespace TennisMatch
             switch (match.teamA_Score.point)
             {
                 case 0:
-                    TeamA_Score.text = "0";
+                    aTeam_Score.text = "0";
                     break;
                 case 1:
-                    TeamA_Score.text = "15";
+                    aTeam_Score.text = "15";
                     break;
                 case 2:
-                    TeamA_Score.text = "30";
+                    aTeam_Score.text = "30";
                     break;
                 case 3:
-                    TeamA_Score.text = "40";
+                    aTeam_Score.text = "40";
                     break;
                 case 4:
-                    TeamA_Score.text = "40A";
+                    aTeam_Score.text = "40A";
                     break;
                 default:
-                    TeamA_Score.text = "error";
+                    aTeam_Score.text = "error";
                     break;
             }
 
             switch (match.teamB_Score.point)
             {
                 case 0:
-                    TeamB_Score.text = "0";
+                    bTeam_Score.text = "0";
                     break;
                 case 1:
-                    TeamB_Score.text = "15";
+                    bTeam_Score.text = "15";
                     break;
                 case 2:
-                    TeamB_Score.text = "30";
+                    bTeam_Score.text = "30";
                     break;
                 case 3:
-                    TeamB_Score.text = "40";
+                    bTeam_Score.text = "40";
                     break;
                 case 4:
-                    TeamB_Score.text = "40A";
+                    bTeam_Score.text = "40A";
                     break;
                 default:
-                    TeamB_Score.text = "error";
+                    bTeam_Score.text = "error";
                     break;
             }
 
 
-            TeamA_Set1.text = match.teamA_Score.gamePerSet[0].ToString();
-            TeamB_Set1.text = match.teamB_Score.gamePerSet[0].ToString();
+            aTeam_Set1.text = match.teamA_Score.gamePerSet[0].ToString();
+            bTeam_Set1.text = match.teamB_Score.gamePerSet[0].ToString();
 
             if (match.MatchSetNumber >= 2)
             {
-                TeamA_Set2.text = match.teamA_Score.gamePerSet[1].ToString();
-                TeamB_Set2.text = match.teamB_Score.gamePerSet[1].ToString();
+                aTeam_Set2.text = match.teamA_Score.gamePerSet[1].ToString();
+                bTeam_Set2.text = match.teamB_Score.gamePerSet[1].ToString();
 
                 if (match.MatchSetNumber >= 3)
                 {
-                    TeamA_Set3.text = match.teamA_Score.gamePerSet[2].ToString();
-                    TeamB_Set3.text = match.teamB_Score.gamePerSet[2].ToString();
+                    aTeam_Set3.text = match.teamA_Score.gamePerSet[2].ToString();
+                    bTeam_Set3.text = match.teamB_Score.gamePerSet[2].ToString();
                 }
                 else
                 {
-                    TeamA_Set3.text = "";
-                    TeamB_Set3.text = "";
+                    aTeam_Set3.text = "";
+                    bTeam_Set3.text = "";
                 }
             }
             else
             {
-                TeamA_Set2.text = "";
-                TeamB_Set2.text = "";
-                TeamA_Set3.text = "";
-                TeamB_Set3.text = "";
+                aTeam_Set2.text = "";
+                bTeam_Set2.text = "";
+                aTeam_Set3.text = "";
+                bTeam_Set3.text = "";
             }
         }
 

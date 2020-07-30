@@ -12,8 +12,6 @@ namespace TennisMatch
 
         [Header("Component")]
         [SerializeField] private TurnManager turnManager;
-        [SerializeField] private RallyScorer rallyScoreur;
-        [SerializeField] private PartyScore partyScore;
         [Space(10)]
         [SerializeField] private RectTransform teamA;
         [SerializeField] private RectTransform teamB;
