@@ -20,7 +20,7 @@ namespace TennisMatch
         GameObject opponent;
 
         //allow debug.log
-        [SerializeField] bool allowDebug;
+        [SerializeField] bool allowDebug = false;
 
         private void Start()
         {
