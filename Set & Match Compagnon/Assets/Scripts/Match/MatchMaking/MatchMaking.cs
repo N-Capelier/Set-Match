@@ -6,6 +6,9 @@ using UnityEngine.Android;
 
 namespace TennisMatch
 {
+    /// <summary>
+    /// NCO
+    /// </summary>
     public class MatchMaking : MonoBehaviour
     {
         public PlayerID playerID;
@@ -16,9 +19,14 @@ namespace TennisMatch
         [SerializeField]
         GameObject opponent;
 
+        //allow debug.log
+        [SerializeField] bool allowDebug;
+
         private void Start()
         {
-            playerID = new PlayerID();
+            // get currently connected player ID
+            // playerID = new PlayerID();
+
             StartCoroutine(StartLocationService());
 
             if (!Permission.HasUserAuthorizedPermission(Permission.CoarseLocation))
@@ -94,7 +102,8 @@ namespace TennisMatch
         {
             if (!Input.location.isEnabledByUser)
             {
-                print("GPS not enabled");
+                if(allowDebug)
+                    print("GPS not enabled");
                 yield return new WaitForSeconds(0.1f);
                 StartCoroutine(StartLocationService());
                 yield break;
@@ -110,13 +119,15 @@ namespace TennisMatch
 
             if (maxWait <= 0)
             {
-                print("Connection timed out");
+                if (allowDebug)
+                    print("Connection timed out");
                 yield break;
             }
 
             if (Input.location.status == LocationServiceStatus.Failed)
             {
-                print("Unable to determin device location");
+                if (allowDebug)
+                    print("Unable to determin device location");
                 yield break;
             }
 
