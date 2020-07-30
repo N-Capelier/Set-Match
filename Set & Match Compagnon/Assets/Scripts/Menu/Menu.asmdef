@@ -1,0 +1,18 @@
+{
+    "name": "Menu",
+    "references": [
+        "GUID:9b5e9fffb70fab9439f980b4805e8083",
+        "GUID:0773b0dfed525f8408b76c1045c790e5",
+        "GUID:2bafac87e7f4b9b418d9448d219b01ab",
+        "GUID:328de41d880d2524da1fbfe755bf1ecc"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

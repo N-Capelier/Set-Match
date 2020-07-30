@@ -1,0 +1,17 @@
+{
+    "name": "MatchLogic",
+    "references": [
+        "GUID:9b5e9fffb70fab9439f980b4805e8083",
+        "GUID:351526d2963eed241b9b004b9368bb14",
+        "GUID:0773b0dfed525f8408b76c1045c790e5"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
