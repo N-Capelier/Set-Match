@@ -18,17 +18,17 @@ MonoBehaviour:
   teamA_Player2: Alpha2Player
   teamB_Player2: Beta2Player
   teamA_Score:
-    point: 0
-    gamePerSet: 000000000000000000000000
+    point: 3
+    gamePerSet: 010000000000000000000000
   teamB_Score:
-    point: 0
+    point: 4
     gamePerSet: 000000000000000000000000
   currentSet: 1
   MatchSetNumber: 3
   teamA_StartServing: 1
   teamA_HaveService: 0
-  teamA_Turn: 0
-  turnCount: 0
-  pointCount: 0
-  gameCount: 0
+  teamA_Turn: 1
+  turnCount: 30
+  pointCount: 25
+  gameCount: 1
   setCount: 0

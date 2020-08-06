@@ -46,6 +46,17 @@ namespace TennisMatch
             matchEvents.onGameMarked -= OnResetGame;
         }
 
+        public void OnExchange(bool aTeamAction)
+        {
+            if (aTeamAction)
+            {
+                TeamATurn();
+            }
+            else
+            {
+                TeamBTurn();
+            }
+        }
         public void OnExchange()
         {
             if (match.teamA_Turn)
@@ -57,7 +68,8 @@ namespace TennisMatch
                 TeamBTurn();
             }
         }
-        private void OnResetGame()
+        
+        private void OnResetGame(bool aTeamAction)
         {
             if (match.teamA_HaveService)
             {

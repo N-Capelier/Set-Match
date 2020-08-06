@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace TennisMatch
 {
@@ -19,7 +18,6 @@ namespace TennisMatch
         [SerializeField] private MatchData match;
 
         private void Awake() => matchEvents = MatchEvents.Instance;
-
         private void Start()
         {
             matchEvents.MatchStart();
@@ -36,12 +34,11 @@ namespace TennisMatch
             matchEvents.onGameMarked -= OnResetGame;
         }
 
-        public void OnExchange()
+        public void OnExchange(bool aTeamTurn)
         {
-            match.teamA_Turn = !match.teamA_Turn;
+            match.teamA_Turn = !aTeamTurn;
         }
-
-        private void OnResetGame()
+        private void OnResetGame(bool aTeamTurn)
         {
             //Changement de serveur
             match.teamA_HaveService = !match.teamA_HaveService;

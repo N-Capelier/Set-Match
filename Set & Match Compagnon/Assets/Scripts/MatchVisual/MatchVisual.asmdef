@@ -2,8 +2,9 @@
     "name": "MatchVisual",
     "references": [
         "GUID:9b5e9fffb70fab9439f980b4805e8083",
-        "GUID:328de41d880d2524da1fbfe755bf1ecc",
+        "GUID:351526d2963eed241b9b004b9368bb14",
         "GUID:bde949191020f2a4bac02f9e10f147ae",
+        "GUID:328de41d880d2524da1fbfe755bf1ecc",
         "GUID:2bafac87e7f4b9b418d9448d219b01ab",
         "GUID:6055be8ebefd69e48b49212b09b47b2f"
     ],

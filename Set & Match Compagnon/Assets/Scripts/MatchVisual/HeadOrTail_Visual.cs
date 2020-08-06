@@ -10,9 +10,6 @@ namespace TennisMatch
     /// </summary>
     public class HeadOrTail_Visual : MonoBehaviour
     {
-        [Header("GameEvent")]
-        [SerializeField] private MatchEvents matchEvents;
-
         [Header("Component")]
         [SerializeField] private HeadOrTail headOrTail;
         [Space(10)]
@@ -23,8 +20,6 @@ namespace TennisMatch
         [SerializeField] private float launchDuration = 2f;
         [SerializeField] private Ease rotation = Ease.InOutCubic;
         [SerializeField, Range(1,24)] private int flipNumber = 6;
-
-        private void Awake() => matchEvents = MatchEvents.Instance;
 
         public void OnCoinLauch()
         {

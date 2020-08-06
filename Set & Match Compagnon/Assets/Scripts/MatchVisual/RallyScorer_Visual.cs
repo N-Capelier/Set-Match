@@ -1,9 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using DG.Tweening;
-using System.Linq;
-using DG.Tweening.Core;
-using UnityEngine.UI;
-using System.Collections;
 
 namespace TennisMatch
 {
@@ -38,31 +35,27 @@ namespace TennisMatch
             matchEvents.onGameMarked -= OnGameMarked;
         }
 
-        public void OnExchange()
+        public void OnExchange(bool aTeamAction)
         {
             MoveToPos();
         }
-        public void OnPointMarked()
+        public void OnPointMarked(bool aTeamAction)
         {
             StopCoroutine(MoveToPosIn(moveDuration));
             StartCoroutine(MoveToPosIn(moveDuration));
         }
-        private void OnGameMarked()
+        private void OnGameMarked(bool aTeamAction)
         {
             StopCoroutine(MoveToPosIn(moveDuration));
-            StopCoroutine(MoveToPosIn((rally.moveHistory.First().moveIncrement * 0.25f) + moveDuration));
-            StartCoroutine(MoveToPosIn((rally.moveHistory.First().moveIncrement * 0.25f) + moveDuration));
+            StopCoroutine(MoveToPosIn(moveDuration));
+            StartCoroutine(MoveToPosIn(moveDuration));
         }
         private void MoveToPos()
         {
-            /// <summary>
-            /// Pourquoi +3 ?
-            /// Car rally value va de -3 à +3 et les pos du jetons de 0 à 7
-            /// </summary>
-            float targetPos = jetonPose[rally.rallyValue + 3];
-            Move lastMove = rally.moveHistory.First();
+            // Pourquoi +3 ? Car rally value va de -3 à +3 et les pos du jetons de 0 à 7
+            float targetPos = jetonPose[rally.value + 3];
 
-            jeton.DOAnchorPosX(targetPos, Mathf.Abs(lastMove.moveIncrement * 0.25f) + moveDuration, false).SetEase(easeType);
+            jeton.DOAnchorPosX(targetPos, moveDuration, false).SetEase(easeType);
         }
 
         IEnumerator MoveToPosIn(float duration)

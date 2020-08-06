@@ -38,7 +38,7 @@ namespace TennisMatch
 
             matchEvents.onMatchStoped += OnMatchStoped;
             matchEvents.onMatchEnd += OnMatchEnd;
-            matchEvents.onMatchClose += OnMatchEnd;
+            matchEvents.onMatchClose += OnMatchClose;
         }
         private void OnDisable()
         {
@@ -54,24 +54,24 @@ namespace TennisMatch
             matchEvents.onMatchClose -= OnMatchClose;
         }
 
+        private void OnExchange(bool aTeamAction)
+        {
+            currentMatch.turnCount++;
+        }
         private void OnUndo()
         {
             currentMatch.turnCount--;
         }
 
-        private void OnExchange()
-        {
-            currentMatch.turnCount++;
-        }
-        private void OnPointMarked()
+        private void OnPointMarked(bool aTeamAction)
         {
             currentMatch.pointCount++;
         }
-        private void OnGameMarked()
+        private void OnGameMarked(bool aTeamAction)
         {
             currentMatch.gameCount++;
         }
-        private void OnSetMarked()
+        private void OnSetMarked(bool aTeamAction)
         {
             currentMatch.setCount++;
         }
@@ -81,11 +81,15 @@ namespace TennisMatch
             ConvertToMatchUnfinished();
             matchEvents.MatchClose();
         }
-        private void OnMatchEnd()
+        private void OnMatchEnd(bool aTeamAction)
         {
             ConvertToMatchComplete();
         }
         private void OnMatchClose()
+        {
+            currentMatch.Reboot();
+        }
+        private void OnMatchClose(bool aTeamAction)
         {
             currentMatch.Reboot();
         }
