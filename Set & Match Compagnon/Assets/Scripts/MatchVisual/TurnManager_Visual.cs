@@ -1,6 +1,4 @@
 ﻿using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace TennisMatch
@@ -33,31 +31,16 @@ namespace TennisMatch
 
         private void OnEnable()
         {
-            matchEvents.onMatchStart += OnExchange;
-
-            matchEvents.onExchange += OnExchange;
-            matchEvents.onGameMarked += OnResetGame;
+            matchEvents.onMatchStart += UpdateTurn;
+            matchEvents.onVisualUpdate += UpdateTurn;
         }
         private void OnDisable()
         {
-            matchEvents.onMatchStart -= OnExchange;
-
-            matchEvents.onExchange -= OnExchange;
-            matchEvents.onGameMarked -= OnResetGame;
+            matchEvents.onMatchStart -= UpdateTurn;
+            matchEvents.onVisualUpdate -= UpdateTurn;
         }
 
-        public void OnExchange(bool aTeamAction)
-        {
-            if (aTeamAction)
-            {
-                TeamATurn();
-            }
-            else
-            {
-                TeamBTurn();
-            }
-        }
-        public void OnExchange()
+        public void UpdateTurn()
         {
             if (match.teamA_Turn)
             {
@@ -69,18 +52,6 @@ namespace TennisMatch
             }
         }
         
-        private void OnResetGame(bool aTeamAction)
-        {
-            if (match.teamA_HaveService)
-            {
-                TeamATurn();
-            }
-            else
-            {
-                TeamBTurn();
-            }
-        }
-
         private void TeamATurn()
         {
             teamA.DOAnchorPosX(centerPos.x, duration).SetEase(easeType);

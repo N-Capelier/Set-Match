@@ -79,7 +79,7 @@ namespace TennisMatch
                         return false;
                     }
                 }
-                else 
+                else
                 //Team adv est en dessous de 40
                 {
                     return true;
@@ -133,7 +133,6 @@ namespace TennisMatch
             }
         }
 
-
         private void ClampTeamsScore()
         {
             //Si les deux équipe dépassent 40 (donc si il y a 40A/40A)
@@ -149,7 +148,6 @@ namespace TennisMatch
             match.teamB_Score.point = 0;
         }
 
-
         private void OnPointMarked(bool aTeamAction)
         {
             if (aTeamAction)
@@ -159,7 +157,7 @@ namespace TennisMatch
                 if (GameWin(match.teamA_Score.point, match.teamB_Score.point))
                 {
                     matchEvents.GameMarked(true);
-                    ResetTeamsPoints();
+                    Invoke("ResetTeamsPoints", 1f);
                 }
                 else
                 {
@@ -173,7 +171,7 @@ namespace TennisMatch
                 if (GameWin(match.teamB_Score.point, match.teamA_Score.point))
                 {
                     matchEvents.GameMarked(false);
-                    ResetTeamsPoints();
+                    Invoke("ResetTeamsPoints", 0.5f);
                 }
                 else
                 {

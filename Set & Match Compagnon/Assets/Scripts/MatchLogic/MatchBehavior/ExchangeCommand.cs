@@ -1,13 +1,17 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace TennisMatch
 {
-
     /// <summary>
-    /// ARD
+    /// ARD script 
+    /// <para> 
+    /// Informations comprises dans chaque échanges
+    /// </para>
     /// </summary>
+    [Serializable]
     public struct Exchange
     {
         public bool aTeamShoot;

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
-using TMPro;
 using DG.Tweening;
+using TMPro;
 
 namespace TennisMatch
 {

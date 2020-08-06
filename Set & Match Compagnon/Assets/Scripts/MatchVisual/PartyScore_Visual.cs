@@ -43,10 +43,12 @@ namespace TennisMatch
         private void OnEnable()
         {
             matchEvents.onGameMarked += OnGameMarked;
+            matchEvents.onVisualUpdate += UpdateVisual;
         }
         private void OnDisable()
         {
             matchEvents.onGameMarked -= OnGameMarked;
+            matchEvents.onVisualUpdate -= UpdateVisual;
         }
 
         private void Start()
@@ -55,7 +57,7 @@ namespace TennisMatch
             bTeamName.text = match.teamB_Player1;
         }
 
-        private void Update()
+        private void UpdateVisual()
         {
             switch (match.teamA_Score.point)
             {
@@ -129,7 +131,25 @@ namespace TennisMatch
                 bTeam_Set3.text = "";
             }
         }
+        private void OnGameMarked(bool aTeamAction)
+        {
+            StartCoroutine(ScoreTemporaryFocus(focusDur));
+        }
 
+        IEnumerator ScoreTemporaryFocus(float duration)
+        {
+            scoreScreen.CenterViewport(duration);
+
+            yield return new WaitForSecondsRealtime(duration);
+
+            ServiceChange();
+
+            yield return new WaitForSecondsRealtime(changeServDur);
+
+            scoreScreen.CornerViewport(duration);
+
+            yield return null;
+        }
         private void ServiceChange()
         {
             float delay = 0.02f;
@@ -155,25 +175,6 @@ namespace TennisMatch
                 ballSadow5.DOAnchorPosY(ballTeamBPos, changeServDur).SetEase(easeType).SetDelay(delay * 5);
             }
 
-        }
-        private void OnGameMarked(bool aTeamAction)
-        {
-            StartCoroutine(ScoreTemporaryFocus(focusDur));
-        }
-
-        IEnumerator ScoreTemporaryFocus(float duration)
-        {
-            scoreScreen.CenterViewport(duration);
-
-            yield return new WaitForSecondsRealtime(duration);
-
-            ServiceChange();
-
-            yield return new WaitForSecondsRealtime(changeServDur);
-
-            scoreScreen.CornerViewport(duration);
-
-            yield return null;
         }
     }
 }

@@ -24,32 +24,19 @@ namespace TennisMatch
 
         private void OnEnable()
         {
-            matchEvents.onExchange += OnExchange;
-            matchEvents.onPointMarked += OnPointMarked;
-            matchEvents.onGameMarked += OnGameMarked;
+            matchEvents.onVisualUpdate += UpdateVisual;
         }
         private void OnDisable()
         {
-            matchEvents.onExchange -= OnExchange;
-            matchEvents.onPointMarked -= OnPointMarked;
-            matchEvents.onGameMarked -= OnGameMarked;
+            matchEvents.onVisualUpdate -= UpdateVisual;
         }
 
-        public void OnExchange(bool aTeamAction)
+        public void UpdateVisual()
         {
+            MoveToPosIn(0.6f);
             MoveToPos();
         }
-        public void OnPointMarked(bool aTeamAction)
-        {
-            StopCoroutine(MoveToPosIn(moveDuration));
-            StartCoroutine(MoveToPosIn(moveDuration));
-        }
-        private void OnGameMarked(bool aTeamAction)
-        {
-            StopCoroutine(MoveToPosIn(moveDuration));
-            StopCoroutine(MoveToPosIn(moveDuration));
-            StartCoroutine(MoveToPosIn(moveDuration));
-        }
+        
         private void MoveToPos()
         {
             // Pourquoi +3 ? Car rally value va de -3 à +3 et les pos du jetons de 0 à 7
@@ -57,7 +44,6 @@ namespace TennisMatch
 
             jeton.DOAnchorPosX(targetPos, moveDuration, false).SetEase(easeType);
         }
-
         IEnumerator MoveToPosIn(float duration)
         {
             yield return new WaitForSecondsRealtime(duration);

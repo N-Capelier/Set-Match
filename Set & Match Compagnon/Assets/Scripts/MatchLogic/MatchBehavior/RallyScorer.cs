@@ -5,8 +5,9 @@ namespace TennisMatch
 {
     /// <summary>
     /// ARD script 
-    /// 
-    /// <para> Rally allant de -3 à 3 </para>
+    /// <para> 
+    /// Rally allant de -3 à 3 
+    /// </para>
     /// </summary>
     public class RallyScorer : MonoBehaviour
     {
