@@ -16,7 +16,7 @@ namespace TennisMatch
 
         [Header("Component")]
         [SerializeField] private PartyScore score;
-        [SerializeField] private ScoreScreen scoreScreen;
+        [SerializeField] private CornerScreen scoreScreen;
         [Space(15)]
         [SerializeField] private RectTransform ball;
         [SerializeField] private RectTransform ballSadow1, ballSadow2, ballSadow3, ballSadow4, ballSadow5;
@@ -156,7 +156,7 @@ namespace TennisMatch
             }
 
         }
-        private void OnGameMarked()
+        private void OnGameMarked(bool aTeamAction)
         {
             StartCoroutine(ScoreTemporaryFocus(focusDur));
         }

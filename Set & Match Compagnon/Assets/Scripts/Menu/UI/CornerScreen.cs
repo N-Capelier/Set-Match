@@ -2,7 +2,7 @@
 using DG.Tweening;
 using UnityEngine.UI;
 
-public class ScoreScreen : MonoBehaviour
+public class CornerScreen : MonoBehaviour
 {
     [Header("Parametre")]
     [SerializeField] float reductSize = 0.4f;

@@ -6,7 +6,7 @@ namespace TennisMatch
     /// <summary>
     /// ARD
     /// </summary>
-    public class MatchParameter : MonoBehaviour
+    public class MatchSettings : MonoBehaviour
     {
         [Header("Variable")]
         [SerializeField] private MatchData match;

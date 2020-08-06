@@ -10,16 +10,16 @@ namespace Player
     /// </summary>
     public class PlayerData
     {
-        MatchDataUnfinished[] currentMatches = new MatchDataUnfinished[20];
+        //MatchDataUnfinished[] currentMatches = new MatchDataUnfinished[20];
 
         #region Methods
 
-        public MatchDataUnfinished LoadMatch(int matchID)
+        /*public MatchDataUnfinished LoadMatch(int matchID)
         {
             return currentMatches[matchID];
-        }
-
-        public void DeleteMatch(int matchID)
+        }*/
+        
+        /*public void DeleteMatch(int matchID)
         {
             for(int i = matchID; i < currentMatches.Length; i++)
             {
@@ -32,9 +32,9 @@ namespace Player
                     currentMatches[i] = null;
                 }
             }
-        }
-
-        public void AddMatch(MatchDataUnfinished match)
+        }*/
+        
+        /*public void AddMatch(MatchDataUnfinished match)
         {
             //Look for empty space
             for(int i = 0; i < currentMatches.Length; i++)
@@ -53,6 +53,7 @@ namespace Player
             }
             currentMatches[0] = match;
         }
+        */
 
         #endregion
     }

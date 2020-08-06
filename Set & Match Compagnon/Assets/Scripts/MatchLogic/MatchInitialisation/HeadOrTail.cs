@@ -9,9 +9,6 @@ namespace TennisMatch
     /// </summary>
     public class HeadOrTail : MonoBehaviour
     {
-        [Header("GameEvent")]
-        [SerializeField] private MatchEvents matchEvents;
-
         [Header("Coin Button"), SerializeField]
         private Button coinButton;
         [Header("StartGame Button"), SerializeField]
@@ -29,8 +26,6 @@ namespace TennisMatch
         public bool haveBeenlauch = false;
         public bool coinResult_Head = true;
         public bool teamA_ChooseHead = true;
-
-        private void Awake() => matchEvents = MatchEvents.Instance;
 
         private void Update()
         {
