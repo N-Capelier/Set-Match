@@ -1,3 +1,15 @@
-﻿{
-	"name": "Network"
+{
+    "name": "Network",
+    "references": [
+        "GUID:9b5e9fffb70fab9439f980b4805e8083"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }
