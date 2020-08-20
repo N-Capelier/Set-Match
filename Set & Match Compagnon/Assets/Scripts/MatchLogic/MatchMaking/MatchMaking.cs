@@ -1,4 +1,5 @@
 ﻿using Player;
+using Sfs2X.Requests;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -39,14 +40,13 @@ namespace TennisMatch
         private void Update()
         {
 
+#if UNITY_EDITOR
             // debug
-
             if(Input.GetKeyDown(KeyCode.A))
             {
                 Instantiate(opponent, new Vector3(1f, 1f, -0.1f), Quaternion.identity);
             }
-
-            // enddebug
+#endif
 
             if (!locationAuthorized)
             {
@@ -134,6 +134,8 @@ namespace TennisMatch
             playerID.location = new Vector2(
                 Input.location.lastData.latitude,
                 Input.location.lastData.longitude);
+
+            NetworkManager.Instance.sfs.Send(new JoinRoomRequest("Lobby"));
 
             yield break;
         }

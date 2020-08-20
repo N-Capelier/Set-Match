@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Player.Encryption;
+using Sfs2X.Requests;
 
 namespace Player
 {
@@ -13,8 +14,6 @@ namespace Player
         #region Variables
 
         PlayerID id;
-        bool isLoggedIn = false;
-        bool isInMatch = false;
 
         #endregion
 
@@ -36,22 +35,27 @@ namespace Player
 
         public void Login(string mail, string inputPassword)
         {
-            //PlayerID player;
+            PlayerID player;
             //find corresponding mail in database and store playerID in player
 
+            //temp
+            player = new PlayerID("DemoUserName", "DemoUserSurname", "DemeUserUsername",
+                "DemoUser@mailnesia.com", PlayerPassword.CreateEncryptedPassword("DemoUserPassword"));
+
             //Compare given password with database password (decrypted)
-            //if(PlayerPassword.CreateEncryptedPassword(inputPassword, player.password.key).password == player.password.password)
+            if (PlayerPassword.CreateEncryptedPassword(inputPassword, player.password.key).password == player.password.password)
 
             //Then log the player in
-            isLoggedIn = true;
+            NetworkManager.Instance.sfs.Send(new LoginRequest(player.username));
+            NetworkManager.isLoggedIn = true;
 
-            //And go to main menus
+            //And go to main menu
         }
 
         public void Logout()
         {
             //log the player out
-            isLoggedIn = false;
+            NetworkManager.isLoggedIn = false;
 
             //goto main menu
         }
@@ -73,14 +77,14 @@ namespace Player
             ResetData();
         }
 
-        public PlayerStats ResetStats()
+        public void ResetStats()
         {
-            return id.stats = new PlayerStats();
+            id.stats = new PlayerStats();
         }
 
-        public PlayerData ResetData()
+        public void ResetData()
         {
-            return id.data = new PlayerData();
+            id.data = new PlayerData();
         }
 
         #endregion
