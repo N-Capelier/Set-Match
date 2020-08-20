@@ -11,6 +11,10 @@ namespace TennisMatch
         public MatchData currentMatch;
         private MatchEvents matchEvents;
 
+        [Header("Variable")]
+        public bool rebootOnAwake = false;
+
+
         private void Awake()
         {
             //Reset du matchData ou erreur s'il n'est pas là
@@ -19,6 +23,7 @@ namespace TennisMatch
                 Debug.LogError("MatchData non attribué");
             }
             else
+            if(rebootOnAwake)
             {
                 currentMatch.Reboot();
             }
@@ -38,7 +43,7 @@ namespace TennisMatch
 
             matchEvents.onMatchStoped += OnMatchStoped;
             matchEvents.onMatchEnd += OnMatchEnd;
-            matchEvents.onMatchClose += OnMatchEnd;
+            matchEvents.onMatchClose += OnMatchClose;
         }
         private void OnDisable()
         {
@@ -54,15 +59,15 @@ namespace TennisMatch
             matchEvents.onMatchClose -= OnMatchClose;
         }
 
+        private void OnExchange()
+        {
+            currentMatch.turnCount++;
+        }
         private void OnUndo()
         {
             currentMatch.turnCount--;
         }
 
-        private void OnExchange()
-        {
-            currentMatch.turnCount++;
-        }
         private void OnPointMarked()
         {
             currentMatch.pointCount++;
@@ -89,7 +94,6 @@ namespace TennisMatch
         {
             currentMatch.Reboot();
         }
-
 
         private void ConvertToMatchUnfinished()
         {
