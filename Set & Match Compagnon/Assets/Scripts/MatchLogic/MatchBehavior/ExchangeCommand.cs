@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace TennisMatch
 {
@@ -20,18 +17,25 @@ namespace TennisMatch
         public int rallyPosBeforeShoot;
         public int exchangePoints;
 
+        public Score teamAScore;
+        public Score teamBScore;
+
         public bool haveMarkedPoint;
         public bool haveMarkedGame;
         public bool haveMarkedSet;
 
         public Exchange(bool aTeamShoot, bool isService, int rallyPos, int exchangePoint,
-                         bool pointMarked, bool gameMarked, bool setMarked)
+                            Score teamAScore, Score teamBScore,
+                                bool pointMarked, bool gameMarked, bool setMarked)
         {
             this.aTeamShoot = aTeamShoot;
             this.isServiceShoot = isService;
 
             this.rallyPosBeforeShoot = rallyPos;
             this.exchangePoints = exchangePoint;
+
+            this.teamAScore = teamAScore;
+            this.teamBScore = teamBScore;
 
             this.haveMarkedPoint = pointMarked;
             this.haveMarkedGame = gameMarked;

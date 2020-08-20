@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace TennisMatch
@@ -8,9 +7,9 @@ namespace TennisMatch
     {
         [Header("GameEvent")]
         private MatchEvents matchEvents;
+        [SerializeField] private MatchData match;
 
         [Header("Variable")]
-        [SerializeField] private MatchData match;
         [SerializeField] private RallyScorer rally;
         public bool canUndo = false;
         public bool canRedo = false;
@@ -27,26 +26,12 @@ namespace TennisMatch
         }
         private void Update()
         {
-            if (moveHistory.Count != 0)
-            {
-                canUndo = true;
-            }
-            else
-            {
-                canUndo = false;
-            }
-
-            if (movesRewind.Count != 0)
-            {
-                canRedo = true;
-            }
-            else
-            {
-                canRedo = false;
-            }
+            //s'il y a des actions de dispo alors on peut undo ou redo
+            canUndo = moveHistory.Count != 0;
+            canRedo = movesRewind.Count != 0;
         }
-
-        public void ExchangeCommand(int increment)
+        
+        /*public void ExchangeCommand(int increment)
         {
             bool aTeamShoot = match.teamA_Turn;
             int pos = rally.value;
@@ -83,11 +68,12 @@ namespace TennisMatch
                 {
                     setMarked = PartyScore.SetWin(match.teamB_Score.gamePerSet[set - 1], match.teamA_Score.gamePerSet[set - 1], isLastSet);
                 }
-                Debug.Log("save game & Set" + setMarked.ToString());
             }
 
             //Construction du move à save
-            Exchange currentMove = new Exchange(aTeamShoot, false, pos, increment, pointMarked, gameMarked, setMarked);
+            Exchange currentMove = new Exchange(aTeamShoot, false, pos, increment, 
+                                                match.teamA_Score, match.teamB_Score, 
+                                                pointMarked, gameMarked, setMarked);
 
             //Move Storage
             movesRewind.Clear();
@@ -97,26 +83,27 @@ namespace TennisMatch
             rally.MovedTo(pos + increment, pointMarked);
 
             //Event du move
-            matchEvents.Exchange(aTeamShoot);
+            matchEvents.Exchange();
             if (pointMarked)
             {
-                matchEvents.PointMarked(aTeamShoot);
+                matchEvents.PointMarked();
             }
             if (gameMarked)
             {
-                matchEvents.GameMarked(aTeamShoot);
+                matchEvents.GameMarked();
             }
             if (setMarked)
             {
-                matchEvents.SetMarked(aTeamShoot);
+                matchEvents.SetMarked();
             }
 
             matchEvents.VisualUpdate();
         }
-
+        */
+        
         public void UndoExchange()
         {
-            Exchange undoMove =  moveHistory.Pop();
+            Exchange undoMove = moveHistory.Pop();
 
             movesRewind.Push(undoMove);
 
@@ -125,35 +112,9 @@ namespace TennisMatch
             //Event du move
             matchEvents.Undo();
 
-            if (undoMove.haveMarkedSet)
-            {
-                if (match.currentSet >= 1)
-                {
-                    match.currentSet--;
-                }
-            }
-            if (undoMove.haveMarkedGame)
-            {
-                if (undoMove.aTeamShoot)
-                {
-                    match.teamA_Score.gamePerSet[match.currentSet]--;
-                }
-                else
-                {
-                    match.teamB_Score.gamePerSet[match.currentSet]--;
-                }
-            }
-            if (undoMove.haveMarkedPoint)
-            {
-                if (undoMove.aTeamShoot)
-                {
-                    match.teamA_Score.point--;
-                } 
-                else 
-                {
-                    match.teamB_Score.point--;
-                }
-            }
+            //
+            //match.teamA_Score = undoMove.teamAScore;
+            //match.teamB_Score = undoMove.teamBScore;
 
             matchEvents.VisualUpdate();
         }
@@ -167,18 +128,18 @@ namespace TennisMatch
             rally.MovedTo(redoMove.rallyPosBeforeShoot + redoMove.exchangePoints, redoMove.haveMarkedPoint);
 
             //Event du move
-            matchEvents.Exchange(redoMove.aTeamShoot);
+            matchEvents.Exchange();
             if (redoMove.haveMarkedPoint)
             {
-                matchEvents.PointMarked(redoMove.aTeamShoot);
+                matchEvents.PointMarked();
             }
             if (redoMove.haveMarkedGame)
             {
-                matchEvents.GameMarked(redoMove.aTeamShoot);
+                matchEvents.GameMarked();
             }
             if (redoMove.haveMarkedSet)
             {
-                matchEvents.SetMarked(redoMove.aTeamShoot);
+                matchEvents.SetMarked();
             }
 
             matchEvents.VisualUpdate();
@@ -186,3 +147,4 @@ namespace TennisMatch
 
     }
 }
+

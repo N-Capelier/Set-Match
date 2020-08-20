@@ -30,17 +30,17 @@ namespace TennisMatch
             //Nombre de Set
             if (MatchInThreeSet.isOn)
             {
-                match.MatchSetNumber = 3;
+                match.score.MatchSetNumber = 3;
             }
             else
             if (MatchInTwoSet.isOn)
             {
-                match.MatchSetNumber = 2;
+                match.score.MatchSetNumber = 2;
             }
             else
             if (MatchInOneSet.isOn)
             {
-                match.MatchSetNumber = 1;
+                match.score.MatchSetNumber = 1;
             }
         }
     }

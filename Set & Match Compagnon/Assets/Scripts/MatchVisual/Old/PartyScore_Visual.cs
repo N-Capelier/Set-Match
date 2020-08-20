@@ -58,7 +58,7 @@ namespace TennisMatch
         }
 
         private void UpdateVisual()
-        {
+        {/*
             switch (match.teamA_Score.point)
             {
                 case 0:
@@ -129,9 +129,9 @@ namespace TennisMatch
                 bTeam_Set2.text = "";
                 aTeam_Set3.text = "";
                 bTeam_Set3.text = "";
-            }
+            }*/
         }
-        private void OnGameMarked(bool aTeamAction)
+        private void OnGameMarked()
         {
             StartCoroutine(ScoreTemporaryFocus(focusDur));
         }

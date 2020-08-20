@@ -34,11 +34,11 @@ namespace TennisMatch
             matchEvents.onGameMarked -= OnResetGame;
         }
 
-        public void OnExchange(bool aTeamTurn)
+        public void OnExchange()
         {
-            match.teamA_Turn = !aTeamTurn;
+            match.teamA_Turn = !match.teamA_Turn;
         }
-        private void OnResetGame(bool aTeamTurn)
+        private void OnResetGame()
         {
             //Changement de serveur
             match.teamA_HaveService = !match.teamA_HaveService;

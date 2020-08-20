@@ -3,6 +3,30 @@
 
 namespace TennisMatch
 {
+
+    /// <summary>
+    /// ARD ancien score
+    /// </summary>
+    /*
+    [Serializable]
+    public struct Score
+    {
+        public int point;
+        public int[] gamePerSet;
+
+        public Score(bool isEmpty)
+        {
+            point = 0;
+            gamePerSet = new int[3] { 0, 0, 0 };
+        }
+        public Score(int pointValue, int GameWinOnSet1, int GameWinOnSet2, int GameWinOnSet3)
+        {
+            point = pointValue;
+            gamePerSet = new int[3] { GameWinOnSet1, GameWinOnSet2, GameWinOnSet3 };
+        }
+    }
+    */
+
     /// <summary>
     /// ARD
     /// </summary>
@@ -10,16 +34,15 @@ namespace TennisMatch
     {
         [Header("GameEvent")]
         private MatchEvents matchEvents;
-
+        /*
         [Header("Component")]
         [SerializeField] private RallyScorer rally;
-        [SerializeField] private HeadOrTail headOrTail;
+        [SerializeField] private _MatchHeadOrTail headOrTail;
 
         [Header("Variable")]
         [SerializeField] private MatchData match;
 
         private void Awake() => matchEvents = MatchEvents.Instance;
-
         private void OnEnable()
         {
             matchEvents.onMatchStart += ResetTeamsPoints;
@@ -148,15 +171,15 @@ namespace TennisMatch
             match.teamB_Score.point = 0;
         }
 
-        private void OnPointMarked(bool aTeamAction)
+        private void OnPointMarked()
         {
-            if (aTeamAction)
+            if (match.teamA_Turn)
             {
-                match.teamA_Score.point ++;
+                match.teamA_Score.point++;
 
                 if (GameWin(match.teamA_Score.point, match.teamB_Score.point))
                 {
-                    matchEvents.GameMarked(true);
+                    matchEvents.GameMarked();
                     Invoke("ResetTeamsPoints", 1f);
                 }
                 else
@@ -170,7 +193,7 @@ namespace TennisMatch
 
                 if (GameWin(match.teamB_Score.point, match.teamA_Score.point))
                 {
-                    matchEvents.GameMarked(false);
+                    matchEvents.GameMarked();
                     Invoke("ResetTeamsPoints", 0.5f);
                 }
                 else
@@ -179,7 +202,7 @@ namespace TennisMatch
                 }
             }
         }
-        private void OnGameMarked(bool aTeamAction)
+        private void OnGameMarked()
         {
             bool isLastSet = match.currentSet >= match.MatchSetNumber;
 
@@ -187,14 +210,14 @@ namespace TennisMatch
             int teamB_SetScore = match.teamB_Score.gamePerSet[match.currentSet - 1];
 
             //+1 pour l'équipe qui prends la Game
-            if (aTeamAction)
+            if (match.teamA_Turn)
             {
                 match.teamA_Score.gamePerSet[match.currentSet - 1]++;
                 teamA_SetScore++;
 
                 if (SetWin(teamA_SetScore, teamB_SetScore, isLastSet))
                 {
-                    matchEvents.SetMarked(true);
+                    matchEvents.SetMarked();
                 }
             }
             else
@@ -204,26 +227,19 @@ namespace TennisMatch
 
                 if (SetWin(teamB_SetScore, teamA_SetScore, isLastSet))
                 {
-                    matchEvents.SetMarked(false);
+                    matchEvents.SetMarked();
                 }
             }
         }
-        private void OnSetMarked(bool aTeamAction)
+        private void OnSetMarked()
         {
             bool isLastSet = match.currentSet >= match.MatchSetNumber;
 
             if (MatchWin(isLastSet))
             {
-                matchEvents.MatchEnd(aTeamAction);
+                matchEvents.MatchEnd();
 
-                if (aTeamAction)
-                {
-                    Debug.Log("A Team Win");
-                }
-                else
-                {
-                    Debug.Log("B Team Win");
-                }
+                Debug.Log("Game End");
             }
             else
             {
@@ -231,6 +247,6 @@ namespace TennisMatch
                 Debug.Log("SetWin");
             }
         }
-
+        */
     }
 }

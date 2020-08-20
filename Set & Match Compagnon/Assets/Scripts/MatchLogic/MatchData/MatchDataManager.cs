@@ -11,6 +11,10 @@ namespace TennisMatch
         public MatchData currentMatch;
         private MatchEvents matchEvents;
 
+        [Header("Variable")]
+        public bool rebootOnAwake = false;
+
+
         private void Awake()
         {
             //Reset du matchData ou erreur s'il n'est pas là
@@ -19,6 +23,7 @@ namespace TennisMatch
                 Debug.LogError("MatchData non attribué");
             }
             else
+            if(rebootOnAwake)
             {
                 currentMatch.Reboot();
             }
@@ -54,7 +59,7 @@ namespace TennisMatch
             matchEvents.onMatchClose -= OnMatchClose;
         }
 
-        private void OnExchange(bool aTeamAction)
+        private void OnExchange()
         {
             currentMatch.turnCount++;
         }
@@ -63,15 +68,15 @@ namespace TennisMatch
             currentMatch.turnCount--;
         }
 
-        private void OnPointMarked(bool aTeamAction)
+        private void OnPointMarked()
         {
             currentMatch.pointCount++;
         }
-        private void OnGameMarked(bool aTeamAction)
+        private void OnGameMarked()
         {
             currentMatch.gameCount++;
         }
-        private void OnSetMarked(bool aTeamAction)
+        private void OnSetMarked()
         {
             currentMatch.setCount++;
         }
@@ -81,7 +86,7 @@ namespace TennisMatch
             ConvertToMatchUnfinished();
             matchEvents.MatchClose();
         }
-        private void OnMatchEnd(bool aTeamAction)
+        private void OnMatchEnd()
         {
             ConvertToMatchComplete();
         }
@@ -89,11 +94,6 @@ namespace TennisMatch
         {
             currentMatch.Reboot();
         }
-        private void OnMatchClose(bool aTeamAction)
-        {
-            currentMatch.Reboot();
-        }
-
 
         private void ConvertToMatchUnfinished()
         {

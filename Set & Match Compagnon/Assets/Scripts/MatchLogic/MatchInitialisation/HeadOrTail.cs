@@ -74,13 +74,13 @@ namespace TennisMatch
 
                 if (teamA_ChooseHead)
                 {
-                    match.teamA_StartServing = true;
+                    match.teamA_StartGame = true;
                     match.teamA_HaveService = true;
                     match.teamA_Turn = true;
                 }
                 else
                 {
-                    match.teamA_StartServing = false;
+                    match.teamA_StartGame = false;
                     match.teamA_HaveService = false;
                     match.teamA_Turn = false;
                 }
@@ -91,13 +91,13 @@ namespace TennisMatch
 
                 if (teamA_ChooseHead)
                 {
-                    match.teamA_StartServing = false;
+                    match.teamA_StartGame = false;
                     match.teamA_HaveService = false;
                     match.teamA_Turn = false;
                 }
                 else
                 {
-                    match.teamA_StartServing = true;
+                    match.teamA_StartGame = true;
                     match.teamA_HaveService = true;
                     match.teamA_Turn = true;
                 }

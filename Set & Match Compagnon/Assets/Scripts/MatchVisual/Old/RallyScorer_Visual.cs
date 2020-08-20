@@ -13,7 +13,6 @@ namespace TennisMatch
         [SerializeField] private RallyScorer rally;
         [Space(10)]
         [SerializeField] private RectTransform jeton;
-        [SerializeField] private PartyScore score;
 
         [Header("Variable")]
         [SerializeField] private float moveDuration = 0.5f;
@@ -46,6 +45,7 @@ namespace TennisMatch
         }
         IEnumerator MoveToPosIn(float duration)
         {
+
             yield return new WaitForSecondsRealtime(duration);
 
             MoveToPos();
