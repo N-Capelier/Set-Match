@@ -1,9 +1,9 @@
-﻿using Sfs2X;
+﻿using System;
+using Sfs2X;
 using Sfs2X.Core;
 using Sfs2X.Logging;
 using Sfs2X.Requests;
 using Sfs2X.Util;
-using System;
 using UnityEngine;
 
 /// <summary>
