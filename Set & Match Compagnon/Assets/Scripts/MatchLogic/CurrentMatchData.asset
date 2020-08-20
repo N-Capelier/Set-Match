@@ -12,23 +12,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac00a91911654cb40a48b83b65f1379c, type: 3}
   m_Name: CurrentMatchData
   m_EditorClassIdentifier: 
-  teamA_Player1: AlphaPlayer
-  teamB_Player1: BetaPlayer
-  doubleMatch: 0
-  teamA_Player2: Alpha2Player
-  teamB_Player2: Beta2Player
-  teamA_Score:
-    point: 0
-    gamePerSet: 000000000000000000000000
-  teamB_Score:
-    point: 0
-    gamePerSet: 000000000000000000000000
-  currentSet: 1
-  MatchSetNumber: 3
-  teamA_StartServing: 1
+  teamA_Player1: P1
+  teamB_Player1: P2
+  teamA_P1img: {fileID: 21300000, guid: ca0dd0695673ae243bf102caf9eb1d1d, type: 3}
+  teamB_P1img: {fileID: 21300000, guid: ca0dd0695673ae243bf102caf9eb1d1d, type: 3}
+  doubleMatch: 1
+  teamA_Player2: P3
+  teamB_Player2: P4
+  teamA_P2img: {fileID: 21300000, guid: ca0dd0695673ae243bf102caf9eb1d1d, type: 3}
+  teamB_P2img: {fileID: 21300000, guid: ca0dd0695673ae243bf102caf9eb1d1d, type: 3}
+  score:
+    aTeamSets: 0
+    bTeamSets: 0
+    MatchSetNumber: 1
+    actualSet: 0
+    Sets:
+    - aTeamGames: 0
+      bTeamGames: 0
+      setEnd: 0
+      aTeamWinSet: 0
+      actualGame: 0
+      Games:
+      - aTeamPoint: 0
+        bTeamPoint: 0
+        gameEnd: 0
+        aTeamWinGame: 0
+  matchEnd: 0
+  teamA_WinMatch: 0
+  teamA_StartGame: 1
   teamA_HaveService: 0
-  teamA_Turn: 0
-  turnCount: 0
-  pointCount: 0
-  gameCount: 0
+  teamA_Turn: 1
+  turnCount: 90
+  pointCount: 5
+  gameCount: 6
   setCount: 0

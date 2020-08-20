@@ -1,31 +1,8 @@
-﻿using System;
-using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace TennisMatch
 {
-    /// <summary>
-    /// ARD
-    /// </summary>
-    [Serializable]
-    public struct Score
-    {
-        public int point;
-        public int[] gamePerSet;
-
-        public Score(bool isEmpty)
-        {
-                point = 0;
-                gamePerSet = new int[3] { 0, 0, 0 };
-        }
-        public Score(int pointValue, int GameWinOnSet1, int GameWinOnSet2, int GameWinOnSet3)
-        {
-            point = pointValue;
-            gamePerSet = new int[3] { GameWinOnSet1, GameWinOnSet2, GameWinOnSet3 };
-        }
-    }
-
     /// <summary>
     /// ARD
     /// </summary>
@@ -33,23 +10,27 @@ namespace TennisMatch
     public class MatchData : ScriptableObject
     {
         [Header("Team Informations")]
-        public string teamA_Player1 = "AlphaPlayer";
-        public string teamB_Player1 = "BetaPlayer";
+        public string teamA_Player1 = "P1";
+        public string teamB_Player1 = "P2";
+        public Sprite teamA_P1img = null;
+        public Sprite teamB_P1img = null;
         [Space(5)]
         //Match Simple ou Double
         public bool doubleMatch = false;
         [Space(5)]
-        public string teamA_Player2 = "Alpha2Player";
-        public string teamB_Player2 = "Beta2Player";
-        [Space(25)]
-        public Score teamA_Score = new Score(0, 0, 0, 0);
-        public Score teamB_Score = new Score(0, 0, 0, 0);
+        public string teamA_Player2 = "P3";
+        public string teamB_Player2 = "P4";
+        public Sprite teamA_P2img = null;
+        public Sprite teamB_P2img = null;
+
+        [Header("Match score")]
+        public Score score = null;
 
         [Header("Match Informations")]
-        [Range(1, 3)] public int currentSet = 1;
-        [Range(1, 3)] public int MatchSetNumber = 3;
+        public bool matchEnd = false;
+        public bool teamA_WinMatch = false;
         [Space(10)]
-        public bool teamA_StartServing = true;
+        public bool teamA_StartGame = true;
         [Space(10)]
         public bool teamA_HaveService = true;
         [Space(10)]
@@ -71,13 +52,12 @@ namespace TennisMatch
             teamA_Player2 = "Alpha2Player";
             teamB_Player2 = "Beta2Player";
 
-            teamA_Score = new Score(0, 0, 0, 0);
-            teamB_Score = new Score(0, 0, 0, 0);
+            score = new Score();
 
-            currentSet = 1;
-            MatchSetNumber = 3;
+            matchEnd = false;
+            teamA_WinMatch = false;
 
-            teamA_StartServing = true;
+            teamA_StartGame = true;
             teamA_HaveService = true;
             teamA_Turn = true;
 
