@@ -31,26 +31,23 @@ namespace TennisMatch
         public bool teamA_WinMatch = false;
         [Space(10)]
         public bool teamA_StartGame = true;
-        [Space(10)]
         public bool teamA_HaveService = true;
-        [Space(10)]
         public bool teamA_Turn = true;
         [Space(10)]
         public int turnCount = 0;
         public int pointCount = 0;
         public int gameCount = 0;
-        public int setCount = 0;
 
         /// <summary>
         /// Clear all match information to default 
         /// </summary>
         public void Reboot()
         {
-            teamA_Player1 = "AlphaPlayer";
-            teamB_Player1 = "BetaPlayer";
+            teamA_Player1 = "P1";
+            teamB_Player1 = "P2";
             doubleMatch = false;
-            teamA_Player2 = "Alpha2Player";
-            teamB_Player2 = "Beta2Player";
+            teamA_Player2 = "P3";
+            teamB_Player2 = "P4";
 
             score = new Score();
 
@@ -64,7 +61,30 @@ namespace TennisMatch
             turnCount = 0;
             pointCount = 0;
             gameCount = 0;
-            setCount = 0;
         }
+
+
+        public void LoadMatch(UnfinnishedMatch matchToContinue)
+        {
+            teamA_Player1 = matchToContinue.teamA_Player1;
+            teamB_Player1 = matchToContinue.teamB_Player1;
+            doubleMatch = matchToContinue.doubleMatch;
+            teamA_Player2 = matchToContinue.teamA_Player2;
+            teamB_Player2 = matchToContinue.teamB_Player2;
+
+            score = matchToContinue.score;
+
+            matchEnd = matchToContinue.matchEnd;
+            teamA_WinMatch = matchToContinue.teamA_WinMatch;
+
+            teamA_StartGame = matchToContinue.teamA_StartGame;
+            teamA_HaveService = matchToContinue.teamA_HaveService;
+            teamA_Turn = matchToContinue.teamA_Turn;
+
+            turnCount = matchToContinue.turnCount;
+            pointCount = matchToContinue.pointCount;
+            gameCount = matchToContinue.gameCount;
+        }
+
     }
 }

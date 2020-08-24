@@ -31,6 +31,7 @@ namespace TennisMatch
             int rallyPos = lastMove.rallyPosBeforeShoot + lastMove.increment;
             int ballDistance = Mathf.Abs(lastMove.increment);
 
+            rallyPos = Mathf.Clamp(rallyPos, -3, 3);
             // Pourquoi +3 ? Car rally value va de -3 à +3 et les pos du jetons de 0 à 7
             float targetPos = jetonPose[rallyPos + 3];
 

@@ -144,7 +144,7 @@ namespace TennisMatch
                 matchEvents.GameMarked();
                 CloseGame(aTeamIsPlaying, currentGame);
 
-                bool lastGame = match.score.actualSet == match.score.MatchSetNumber;
+                bool lastGame = match.score.actualSet + 1 >= match.score.MatchSetNumber;
 
                 int aTeamGamesMarked = match.score.Sets[currentSet].aTeamGames;
                 int bTeamGamesMarked = match.score.Sets[currentSet].bTeamGames;
@@ -215,6 +215,7 @@ namespace TennisMatch
             }
 
             match.matchEnd = true;
+            matchEvents.MatchEnd();
 
         }
 

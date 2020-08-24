@@ -84,4 +84,107 @@ namespace TennisMatch
         }
     }
 
+    /// <summary>
+    /// ARD script 
+    /// <para> 
+    /// Informations comprises dans chaque échanges
+    /// </para>
+    /// </summary>
+    [Serializable]
+    public struct FinalScore
+    {
+        public bool aTeamWinMatch;
+
+        public int aTeamSets;
+        public int bTeamSets;
+
+        public SetComplete[] sets;
+
+        public FinalScore(SetComplete[] sets)
+        {
+            this.sets = sets;
+
+            aTeamSets = 0;
+            bTeamSets = 0;
+
+            foreach (SetComplete set in sets)
+            {
+                if (set.aTeamWinSet)
+                {
+                    aTeamSets++;
+                }
+                else
+                {
+                    bTeamSets++;
+                }
+            }
+
+            aTeamWinMatch = aTeamSets > bTeamSets;
+        }
+
+    }
+
+
+    /// <summary>
+    /// ARD script 
+    /// <para> 
+    /// Informations comprises dans chaque échanges
+    /// </para>
+    /// </summary>
+    [Serializable]
+    public struct SetComplete
+    {
+        public bool aTeamWinSet;
+
+        public int aTeamGames;
+        public int bTeamGames;
+
+        public GameComplete[] games;
+
+        public SetComplete(GameComplete[] games)
+        {
+            this.games = games;
+
+            aTeamGames = 0;
+            bTeamGames = 0;
+
+            foreach(GameComplete game in games)
+            {
+                if (game.aTeamWinGame)
+                {
+                    aTeamGames++;
+                }
+                else
+                {
+                    bTeamGames++;
+                }
+            }
+
+            aTeamWinSet = aTeamGames > bTeamGames;
+        }
+
+    }
+
+    /// <summary>
+    /// ARD script 
+    /// <para> 
+    /// Informations comprises dans chaque échanges
+    /// </para>
+    /// </summary>
+    [Serializable]
+    public struct GameComplete
+    {
+        public bool aTeamWinGame;
+
+        public int aTeamPoints;
+        public int bTeamPoints;
+
+        public GameComplete(int aTeamPoints, int bTeamPoints)
+        {
+            this.aTeamPoints = aTeamPoints;
+            this.bTeamPoints = bTeamPoints;
+
+            aTeamWinGame = aTeamPoints > bTeamPoints;
+        }
+    }
 }

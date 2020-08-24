@@ -1,18 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TennisMatch;
 using UnityEngine;
 
 public class PlayerData : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public static List<CompleteMatch> matchHistory = new List<CompleteMatch>();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public static UnfinnishedMatch[] matchToFinnish = new UnfinnishedMatch[10];
+
+
 }
