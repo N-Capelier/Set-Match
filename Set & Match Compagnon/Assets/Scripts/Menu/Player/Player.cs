@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Player.Encryption;
 using Sfs2X.Requests;
+using Sfs2X.Entities.Variables;
 
 namespace Player
 {
@@ -29,6 +30,12 @@ namespace Player
 
             //create ID and login
             id = new PlayerID(name, surname, username, mail, PlayerPassword.CreateEncryptedPassword(password));
+
+            List<UserVariable> userVariable = new List<UserVariable>();
+            userVariable.Add(new SFSUserVariable("id", id));
+
+            NetworkManager.Instance.sfs.Send(new SetUserVariablesRequest(userVariable));
+
             Login(mail, password);
             return true;
         }

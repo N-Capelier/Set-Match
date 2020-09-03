@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using Sfs2X;
 using Sfs2X.Core;
 using Sfs2X.Logging;
 using Sfs2X.Requests;
 using Sfs2X.Util;
 using UnityEngine;
+using Sfs2X.Entities.Variables;
+using Sfs2X.Entities;
+using Sfs2X.Entities.Data;
+using Sfs2X.Protocol.Serialization;
 
 /// <summary>
 /// NCO
@@ -20,6 +25,27 @@ public class NetworkManager : Singleton<NetworkManager>
     public static bool isInMatch = false;
 
     #endregion
+
+#if UNITY_EDITOR
+
+    public class Test
+    {
+        public string name;
+        public int id;
+
+        public Test(string name, int id)
+        {
+            this.name = name;
+            this.id = id;
+        }
+
+        public override string ToString()
+        {
+            return id + " & " + name;
+        }
+    }
+
+#endif
 
     #region Unity Methods
 
@@ -54,9 +80,29 @@ public class NetworkManager : Singleton<NetworkManager>
                 Disconnect();
             }
         }
+
+        if(Input.GetKeyDown(KeyCode.L))
+        {
+            sfs.AddEventListener(SFSEvent.USER_VARIABLES_UPDATE, OnUserVarsUpdate);
+
+            SFSObject myObject = new SFSObject();
+            myObject.PutClass("thevar", new Test("This is a name", 9));
+
+            sfs.Send(new ExtensionRequest("testObject", myObject));
+        }
+
+
 #endif
 
     }
+
+#if UNITY_EDITOR
+    void OnUserVarsUpdate(BaseEvent evt)
+    {
+        User user = (User)evt.Params["user"];
+        Debug.Log("value : " + user.GetVariable("test").ToString());
+    }
+#endif
 
     #endregion
 
