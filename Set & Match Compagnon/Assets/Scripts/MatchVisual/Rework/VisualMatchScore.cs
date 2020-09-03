@@ -2,7 +2,6 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace TennisMatch
 {
@@ -11,9 +10,6 @@ namespace TennisMatch
     /// </summary>
     public class VisualMatchScore : MonoBehaviour
     {
-        [Header("GameEvent")]
-        private MatchEvents matchEvents;
-
         [Header("Component")]
         [SerializeField] private CornerScreen scoreScreen;
         [Space(15)]
@@ -37,18 +33,17 @@ namespace TennisMatch
         [SerializeField] private float ballTeamAPos, ballTeamBPos;
         [SerializeField] private Ease easeType = Ease.InOutCubic;
 
-        private void Awake() => matchEvents = MatchEvents.Instance;
         private void OnEnable()
         {
-            matchEvents.onMatchStart += Initialisation;
-            matchEvents.onGameMarked += OnGameMarked;
-            matchEvents.onVisualUpdate += UpdateVisual;
+            MatchEvents.onMatchStart += Initialisation;
+            MatchEvents.onGameMarked += OnGameMarked;
+            MatchEvents.onVisualUpdate += UpdateVisual;
         }
         private void OnDisable()
         {
-            matchEvents.onMatchStart -= Initialisation;
-            matchEvents.onGameMarked -= OnGameMarked;
-            matchEvents.onVisualUpdate -= UpdateVisual;
+            MatchEvents.onMatchStart -= Initialisation;
+            MatchEvents.onGameMarked -= OnGameMarked;
+            MatchEvents.onVisualUpdate -= UpdateVisual;
         }
 
         private void Initialisation()
@@ -107,8 +102,8 @@ namespace TennisMatch
             int aTeamPoints = match.score.Sets[currentSet].Games[currentGame].aTeamPoint;
             int bTeamPoints = match.score.Sets[currentSet].Games[currentGame].bTeamPoint;
 
-            aTeam_Score.text = IntPointIntoString(aTeamPoints, bTeamPoints);
-            bTeam_Score.text = IntPointIntoString(bTeamPoints, aTeamPoints);
+            aTeam_Score.text = DataVisualizer.IntPointIntoString(aTeamPoints, bTeamPoints);
+            bTeam_Score.text = DataVisualizer.IntPointIntoString(bTeamPoints, aTeamPoints);
 
             //Set
             int setNumber = match.score.MatchSetNumber;
@@ -154,38 +149,6 @@ namespace TennisMatch
                 bTeam_Set2.text = "";
                 aTeam_Set3.text = "";
                 bTeam_Set3.text = "";
-            }
-        }
-
-        public string IntPointIntoString(int allPoints, int advPoints)
-        {
-            if(allPoints <= 3)
-            {
-                switch (allPoints)
-                {
-                    case 0:
-                        return "0";
-                    case 1:
-                        return "15";
-                    case 2:
-                        return "30";
-                    case 3:
-                        return "40";
-                    default:
-                        return "XX";
-                }
-
-            }
-            else
-            {
-                if(allPoints > advPoints)
-                {
-                    return "40A";
-                }
-                else
-                {
-                    return "40";
-                }
             }
         }
 

@@ -1,13 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using UnityEngine;
 using TennisMatch;
-using UnityEngine;
+using System.Collections.Generic;
 
-public class PlayerData : MonoBehaviour
+namespace Player
 {
-    public static List<CompleteMatch> matchHistory = new List<CompleteMatch>();
+    /// <summary>
+    /// ARD
+    /// </summary>
+    public class PlayerData : MonoBehaviour
+    {
+        public static List<CompleteMatch> CompleteMatchs = new List<CompleteMatch>();
+        public static int matchsIncorporateIntoStat;
 
-    public static UnfinnishedMatch[] matchToFinnish = new UnfinnishedMatch[10];
-
-
+    }
 }
+
+

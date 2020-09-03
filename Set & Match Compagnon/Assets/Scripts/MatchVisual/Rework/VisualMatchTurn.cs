@@ -9,7 +9,6 @@ namespace TennisMatch
     public class VisualMatchTurn : MonoBehaviour
     {
         [Header("Game Meta")]
-        private MatchEvents matchEvents;
         [SerializeField] private MatchData match;
 
         [Header("Component")]
@@ -38,17 +37,15 @@ namespace TennisMatch
         [SerializeField] private float duration = 1f;
         [SerializeField] private Ease easeType = Ease.InOutCubic;
 
-        private void Awake() => matchEvents = MatchEvents.Instance;
-
         private void OnEnable()
         {
-            matchEvents.onMatchStart += UpdateTurn;
-            matchEvents.onVisualUpdate += UpdateTurn;
+            MatchEvents.onMatchStart += UpdateTurn;
+            MatchEvents.onVisualUpdate += UpdateTurn;
         }
         private void OnDisable()
         {
-            matchEvents.onMatchStart -= UpdateTurn;
-            matchEvents.onVisualUpdate -= UpdateTurn;
+            MatchEvents.onMatchStart -= UpdateTurn;
+            MatchEvents.onVisualUpdate -= UpdateTurn;
         }
 
         public void UpdateTurn()

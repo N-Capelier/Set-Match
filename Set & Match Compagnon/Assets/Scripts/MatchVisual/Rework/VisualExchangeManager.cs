@@ -10,9 +10,6 @@ namespace TennisMatch
     /// </summary>
     public class VisualExchangeManager : MonoBehaviour
     {
-        [Header("GameEvent")]
-        private MatchEvents matchEvents;
-
         [Header("Component")]
         [SerializeField] private _MatchExchangeManager action;
         [Space(10)]
@@ -28,17 +25,19 @@ namespace TennisMatch
         [SerializeField] private float colorFadeDuration = 0.5f;
         [SerializeField] private Ease fadeMode = Ease.InOutCubic;
 
-        private void Awake() => matchEvents = MatchEvents.Instance;
-
+        private void Awake()
+        {
+            action = _MatchExchangeManager.Instance;
+        }
         private void OnEnable()
         {
-            matchEvents.onMatchStart += UpdateVisual;
-            matchEvents.onVisualUpdate += UpdateVisual;
+            MatchEvents.onMatchStart += UpdateVisual;
+            MatchEvents.onVisualUpdate += UpdateVisual;
         }
         private void OnDisable()
         {
-            matchEvents.onMatchStart += UpdateVisual;
-            matchEvents.onVisualUpdate += UpdateVisual;
+            MatchEvents.onMatchStart += UpdateVisual;
+            MatchEvents.onVisualUpdate += UpdateVisual;
         }
 
         void UpdateVisual()

@@ -62,8 +62,6 @@ namespace TennisMatch
             pointCount = 0;
             gameCount = 0;
         }
-
-
         public void LoadMatch(UnfinnishedMatch matchToContinue)
         {
             teamA_Player1 = matchToContinue.teamA_Player1;

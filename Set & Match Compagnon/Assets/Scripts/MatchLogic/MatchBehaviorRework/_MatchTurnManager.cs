@@ -9,16 +9,14 @@ namespace TennisMatch
     public class _MatchTurnManager : Singleton<_MatchTurnManager>
     {
         [Header("GameEvent")]
-        [SerializeField] private MatchEvents matchEvents;
         [SerializeField] private MatchData match;
 
         [Header("Variable")]
         public List<string> matchPlayers = new List<string>();
         public int turnOfPlayer = 0;
 
-        private void Awake() => matchEvents = MatchEvents.Instance;
-        private void OnEnable() => matchEvents.onMatchStart += Initialisation;
-        private void OnDisable() => matchEvents.onMatchStart -= Initialisation;
+        private void OnEnable() => MatchEvents.onMatchStart += Initialisation;
+        private void OnDisable() => MatchEvents.onMatchStart -= Initialisation;
         
         private void Initialisation()
         {

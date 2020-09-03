@@ -20,6 +20,17 @@ namespace TennisMatch
         [Range(1, 3)] public int MatchSetNumber = 3;
         [Range(0, 2)] public int actualSet = 0;
         public List<Set> Sets = new List<Set>();
+
+        public Score()
+        {
+            aTeamSets = 0;
+            bTeamSets = 0;
+
+            MatchSetNumber = 3;
+            actualSet = 0;
+
+            Sets = new List<Set>() { new Set() };
+        }
     }
 
     /// <summary> ARD script
@@ -40,6 +51,17 @@ namespace TennisMatch
 
         public int actualGame = 0;
         public List<Game> Games = new List<Game>();
+
+        public Set()
+        {
+            aTeamGames = 0;
+            bTeamGames = 0;
+
+            setEnd = false;
+            aTeamWinSet = false;
+
+            Games = new List<Game>() { new Game() };
+        }
     }
 
     /// <summary> ARD script
@@ -84,14 +106,15 @@ namespace TennisMatch
         }
     }
 
-    /// <summary>
-    /// ARD script 
-    /// <para> 
-    /// Informations comprises dans chaque échanges
-    /// </para>
-    /// </summary>
+    /// <summary> ARD script
+    /// <list type="explication">
+    /// <item> aTeamWinMatch  </item>
+    /// <item> aTeamSets      </item>
+    /// <item> bTeamSets      </item>
+    /// <item> Array[] Sets   </item>
+    /// </list> </summary>
     [Serializable]
-    public struct FinalScore
+    public class FinalScore
     {
         public bool aTeamWinMatch;
 
@@ -124,15 +147,15 @@ namespace TennisMatch
 
     }
 
-
-    /// <summary>
-    /// ARD script 
-    /// <para> 
-    /// Informations comprises dans chaque échanges
-    /// </para>
-    /// </summary>
+    /// <summary> ARD script
+    /// <list type="explication">
+    /// <item> aTeamWinSet  </item>
+    /// <item> aTeamGames      </item>
+    /// <item> bTeamGames      </item>
+    /// <item> Array[] games   </item>
+    /// </list> </summary>
     [Serializable]
-    public struct SetComplete
+    public class SetComplete
     {
         public bool aTeamWinSet;
 
@@ -165,14 +188,14 @@ namespace TennisMatch
 
     }
 
-    /// <summary>
-    /// ARD script 
-    /// <para> 
-    /// Informations comprises dans chaque échanges
-    /// </para>
-    /// </summary>
+    /// <summary> ARD script
+    /// <list type="explication">
+    /// <item> aTeamWinGame    </item>
+    /// <item> aTeamPoints      </item>
+    /// <item> bTeamPoints      </item>
+    /// </list> </summary>
     [Serializable]
-    public struct GameComplete
+    public class GameComplete
     {
         public bool aTeamWinGame;
 

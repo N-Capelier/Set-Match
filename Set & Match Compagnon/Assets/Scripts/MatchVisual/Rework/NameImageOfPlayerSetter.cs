@@ -11,17 +11,16 @@ namespace TennisMatch
     {
         [Header("GameEvent")]
         [SerializeField] private MatchData match;
-        private MatchEvents matchEvents;
 
         [Header("Team Informations")]
         [SerializeField] private GameObject aTeamP2Obj;
         [SerializeField] private GameObject bTeamP2Obj;
         [Space(25)]
-        [SerializeField] private TextMeshProUGUI aTeamNameP1;
-        [SerializeField] private TextMeshProUGUI bTeamNameP1;
+        [SerializeField] private Text aTeamNameP1;
+        [SerializeField] private Text bTeamNameP1;
         [Space(10)]
-        [SerializeField] private TextMeshProUGUI aTeamNameP2;
-        [SerializeField] private TextMeshProUGUI bTeamNameP2;
+        [SerializeField] private Text aTeamNameP2;
+        [SerializeField] private Text bTeamNameP2;
         [Space(25)]
         public Image teamA_P1img;
         public Image teamB_P1img;
@@ -29,15 +28,14 @@ namespace TennisMatch
         public Image teamA_P2img;
         public Image teamB_P2img;
 
-        private void Awake() => matchEvents = MatchEvents.Instance;
         private void OnEnable()
         {
-            matchEvents.onMatchStart += UpdateOnEvent;
+            MatchEvents.onMatchStart += UpdateOnEvent;
             UpdateOnEvent();
         }
         private void OnDisable()
         {
-            matchEvents.onMatchStart -= UpdateOnEvent;
+            MatchEvents.onMatchStart -= UpdateOnEvent;
         }
 
         private void UpdateOnEvent()
