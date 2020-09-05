@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac00a91911654cb40a48b83b65f1379c, type: 3}
   m_Name: CurrentMatchData
   m_EditorClassIdentifier: 
-  teamA_Player1: P1
-  teamB_Player1: P2
-  teamA_P1img: {fileID: 21300000, guid: ca0dd0695673ae243bf102caf9eb1d1d, type: 3}
-  teamB_P1img: {fileID: 21300000, guid: ca0dd0695673ae243bf102caf9eb1d1d, type: 3}
+  teamA_Player1: tyfyh
+  teamB_Player1: dgdf
+  teamA_P1img: {fileID: 21300000, guid: 0f6c89cc5adfa0041b796173a88de452, type: 3}
+  teamB_P1img: {fileID: 21300000, guid: fc6974c3f8eb6d94e83d1127a585a0b6, type: 3}
   doubleMatch: 1
-  teamA_Player2: P3
-  teamB_Player2: P4
-  teamA_P2img: {fileID: 21300000, guid: ca0dd0695673ae243bf102caf9eb1d1d, type: 3}
-  teamB_P2img: {fileID: 21300000, guid: ca0dd0695673ae243bf102caf9eb1d1d, type: 3}
+  teamA_Player2: dgfd
+  teamB_Player2: dgdg
+  teamA_P2img: {fileID: 21300000, guid: 222489aa5a4b0ac48af895c0f44adc0c, type: 3}
+  teamB_P2img: {fileID: 21300000, guid: 5233af66888b26d4488ff55888abd07e, type: 3}
   score:
     aTeamSets: 0
     bTeamSets: 0
@@ -45,4 +45,3 @@ MonoBehaviour:
   turnCount: 90
   pointCount: 5
   gameCount: 6
-  setCount: 0

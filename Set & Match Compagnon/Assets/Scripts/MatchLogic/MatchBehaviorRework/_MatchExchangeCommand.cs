@@ -43,7 +43,7 @@ namespace TennisMatch
     /// ARD script 
     /// <para> Créateur d'échange
     /// </para> </summary>
-    public class _MatchExchangeCommand
+    public static class _MatchExchangeCommand
     {
         public static MatchExchange GenerateExchange(int rallyPos, int increment, int playerTurn)
         {

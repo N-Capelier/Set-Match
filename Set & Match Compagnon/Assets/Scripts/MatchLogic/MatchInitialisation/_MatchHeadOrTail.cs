@@ -8,7 +8,6 @@ namespace TennisMatch
     public class _MatchHeadOrTail : MonoBehaviour
     {
         [Header("Match")]
-        [SerializeField] private MatchEvents matchEvents;
         [SerializeField] private MatchData match;
 
         [Header("Variable")]
@@ -45,11 +44,12 @@ namespace TennisMatch
         /// <item> <description> True = Head </description> </item>
         /// <item> <description> False = Tail </description> </item>
         /// </list> </summary>
-        private bool CoinFLauch()
+        private bool CoinLauch()
         {
             // 0-1-2-3-4 means Head win 
             // 5-6-7-8-9 means Tail win
-            return UnityEngine.Random.Range(0, 10) < 5 ? true : false;
+            int randomNumber = Random.Range(0, 10);
+            return randomNumber < 5;
         }
 
         /// <summary> 
@@ -62,7 +62,7 @@ namespace TennisMatch
             {
                 if (!coinhaveBeenLauch)
                 {
-                    bool resultIsHead = CoinFLauch();
+                    bool resultIsHead = CoinLauch();
 
                     if (aTeamChooseHead)
                     {

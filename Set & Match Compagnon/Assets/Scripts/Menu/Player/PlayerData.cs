@@ -1,18 +1,18 @@
-﻿using System.Collections;
+﻿using UnityEngine;
+using TennisMatch;
 using System.Collections.Generic;
-using UnityEngine;
 
-public class PlayerData : MonoBehaviour
+namespace Player
 {
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// ARD
+    /// </summary>
+    public class PlayerData : MonoBehaviour
     {
-        
-    }
+        public static List<CompleteMatch> CompleteMatchs = new List<CompleteMatch>();
+        public static int matchsIncorporateIntoStat;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
+
+

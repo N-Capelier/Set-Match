@@ -8,18 +8,18 @@ namespace TennisMatch
     public class _MatchSettings : MonoBehaviour
     {
         [Header("Variable")]
-        [SerializeField] private MatchData match;
+        [SerializeField] private MatchData matchData;
 
         public void SetMatchSetNumber(int numberOfSet)
         {
             //Au cas où
             Mathf.Clamp(numberOfSet, 1, 3);
 
-            match.score.MatchSetNumber = numberOfSet;
+            matchData.score.MatchSetNumber = numberOfSet;
         }
         public void SetMatchDouble(bool IsDouble)
         {
-            match.doubleMatch = IsDouble;
+            matchData.doubleMatch = IsDouble;
         }
     }
 }

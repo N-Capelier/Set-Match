@@ -8,22 +8,16 @@ namespace TennisMatch
     public class _MatchScore : MonoBehaviour
     {
         [Header("GameMeta")]
-        private MatchEvents matchEvents;
         [SerializeField] private MatchData match;
         
-        private void Awake()
-        {
-            matchEvents = MatchEvents.Instance;
-
-            Initialisation(match.score.MatchSetNumber);
-        }
+        private void Awake()=>Initialisation(match.score.MatchSetNumber);
         private void OnEnable()
         {
-            matchEvents.onMatchStart += Initialise;
+            MatchEvents.onMatchStart += Initialise;
         }
         private void OnDisable()
         {
-            matchEvents.onMatchStart -= Initialise;
+            MatchEvents.onMatchStart -= Initialise;
         }
        
         private void Initialise()
@@ -131,7 +125,7 @@ namespace TennisMatch
 
             //ajout du point
             AddPoint(aTeamIsPlaying, currentSet, currentGame);
-            matchEvents.PointMarked();
+            MatchEvents.PointMarked();
 
             int aTeamPoints = match.score.Sets[currentSet].Games[currentGame].aTeamPoint;
             int bTeamPoints = match.score.Sets[currentSet].Games[currentGame].bTeamPoint;
@@ -141,10 +135,10 @@ namespace TennisMatch
 
             if (GameWin(winingPointTeam, losingPointTeam))
             {
-                matchEvents.GameMarked();
+                MatchEvents.GameMarked();
                 CloseGame(aTeamIsPlaying, currentGame);
 
-                bool lastGame = match.score.actualSet == match.score.MatchSetNumber;
+                bool lastGame = match.score.actualSet + 1 >= match.score.MatchSetNumber;
 
                 int aTeamGamesMarked = match.score.Sets[currentSet].aTeamGames;
                 int bTeamGamesMarked = match.score.Sets[currentSet].bTeamGames;
@@ -154,12 +148,12 @@ namespace TennisMatch
 
                 if (SetWin(winingGameTeam, losingGameTeam, lastGame))
                 {
-                    matchEvents.SetMarked();
+                    MatchEvents.SetMarked();
                     CloseSet(aTeamIsPlaying, currentSet);
 
                     if (lastGame)
                     {
-                        matchEvents.MatchClose();
+                        MatchEvents.MatchClose();
                         EndMatch(); 
                     }
                     else
@@ -215,6 +209,7 @@ namespace TennisMatch
             }
 
             match.matchEnd = true;
+            MatchEvents.MatchEnd();
 
         }
 

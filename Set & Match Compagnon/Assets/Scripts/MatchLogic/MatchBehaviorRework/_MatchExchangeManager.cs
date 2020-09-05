@@ -3,10 +3,9 @@ using UnityEngine;
 
 namespace TennisMatch
 {
-    public class _MatchExchangeManager : MonoBehaviour
+    public class _MatchExchangeManager : Singleton<_MatchExchangeManager>
     {
         [Header("GameEvent")]
-        [SerializeField] private MatchEvents matchEvents;
         [SerializeField] private _MatchTurnManager turnManager;
         [SerializeField] private _MatchRally rally;
         [SerializeField] private _MatchScore scorer;
@@ -20,8 +19,6 @@ namespace TennisMatch
 
         private void Awake()
         {
-            matchEvents = MatchEvents.Instance;
-
             moveHistory = new Stack<MatchExchange>();
             movesRewind = new Stack<MatchExchange>();
         }
@@ -66,8 +63,8 @@ namespace TennisMatch
             moveHistory.Push(exchange);
 
             //Event du move
-            matchEvents.Exchange();
-            matchEvents.VisualUpdate();
+            MatchEvents.Exchange();
+            MatchEvents.VisualUpdate();
         }
 
         public void UndoMove()
@@ -83,10 +80,10 @@ namespace TennisMatch
             {
                 scorer.RemovePoint(undoMove.aTeamAction);
             }
-            
+
             //Event du move
-            matchEvents.Undo();
-            matchEvents.VisualUpdate();
+            MatchEvents.Undo();
+            MatchEvents.VisualUpdate();
         }
 
         public void RedoMove()

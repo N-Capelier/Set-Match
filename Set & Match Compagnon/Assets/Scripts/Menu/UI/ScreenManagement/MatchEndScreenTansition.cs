@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
-using DG.Tweening;
 
 namespace TennisMatch
 {
     /// <summary>
     /// ARD script
     /// </summary>
-    public class VisualEndScreen : MonoBehaviour
+    public class MatchEndScreenTansition : MonoBehaviour
     {
         [Header("Game Meta")]
         [SerializeField] private MatchData match;
@@ -29,6 +28,5 @@ namespace TennisMatch
             matchScreen.ExitViewportH(-2000);
             endGameScreen.SetActiveScreenFromH(2000);
         }
-
     }
 }

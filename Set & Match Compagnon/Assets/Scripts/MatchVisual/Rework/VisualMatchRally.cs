@@ -6,9 +6,6 @@ namespace TennisMatch
 {
     public class VisualMatchRally : MonoBehaviour
     {
-        [Header("GameEvent")]
-        private MatchEvents matchEvents;
-
         [Header("Component")]
         [SerializeField] private _MatchExchangeManager exchange;
         [Space(10)]
@@ -20,26 +17,35 @@ namespace TennisMatch
         [SerializeField] private Ease easeType = Ease.InOutCubic;
         [SerializeField] float[] jetonPose = new float[7];
 
-        private void Awake() => matchEvents = MatchEvents.Instance;
-        private void OnEnable() => matchEvents.onVisualUpdate += UpdateVisual;
-        private void OnDisable() => matchEvents.onVisualUpdate -= UpdateVisual;
+        private void OnEnable() => MatchEvents.onVisualUpdate += UpdateVisual;
+        private void OnDisable() => MatchEvents.onVisualUpdate -= UpdateVisual;
         
         public void UpdateVisual()
         {
-            MatchExchange lastMove = exchange.moveHistory.Peek();
-
-            int rallyPos = lastMove.rallyPosBeforeShoot + lastMove.increment;
-            int ballDistance = Mathf.Abs(lastMove.increment);
-
-            // Pourquoi +3 ? Car rally value va de -3 à +3 et les pos du jetons de 0 à 7
-            float targetPos = jetonPose[rallyPos + 3];
-
-            jeton.DOAnchorPosX(targetPos, baseMoveDur - (reductDistFactor * ballDistance), false).SetEase(easeType);
-
-            if(Mathf.Abs(rallyPos) == 3)
+            if (exchange.moveHistory.Count > 0)
             {
-                StopCoroutine(PointWin(targetPos, ballDistance));
-                StartCoroutine(PointWin(targetPos, ballDistance));
+
+                MatchExchange lastMove = exchange.moveHistory.Peek();
+
+                int rallyPos = lastMove.rallyPosBeforeShoot + lastMove.increment;
+                int ballDistance = Mathf.Abs(lastMove.increment);
+
+                rallyPos = Mathf.Clamp(rallyPos, -3, 3);
+                // Pourquoi +3 ? Car rally value va de -3 à +3 et les pos du jetons de 0 à 7
+                float targetPos = jetonPose[rallyPos + 3];
+
+                jeton.DOAnchorPosX(targetPos, baseMoveDur - (reductDistFactor * ballDistance), false).SetEase(easeType);
+
+                if (Mathf.Abs(rallyPos) == 3)
+                {
+                    StopCoroutine(PointWin(targetPos, ballDistance));
+                    StartCoroutine(PointWin(targetPos, ballDistance));
+                }
+            }
+            else
+            {
+                jeton.DOAnchorPosX(jetonPose[3], baseMoveDur, false).SetEase(easeType);
+
             }
         }
         

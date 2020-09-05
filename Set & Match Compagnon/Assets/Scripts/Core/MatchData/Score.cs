@@ -20,6 +20,17 @@ namespace TennisMatch
         [Range(1, 3)] public int MatchSetNumber = 3;
         [Range(0, 2)] public int actualSet = 0;
         public List<Set> Sets = new List<Set>();
+
+        public Score()
+        {
+            aTeamSets = 0;
+            bTeamSets = 0;
+
+            MatchSetNumber = 3;
+            actualSet = 0;
+
+            Sets = new List<Set>() { new Set() };
+        }
     }
 
     /// <summary> ARD script
@@ -40,6 +51,17 @@ namespace TennisMatch
 
         public int actualGame = 0;
         public List<Game> Games = new List<Game>();
+
+        public Set()
+        {
+            aTeamGames = 0;
+            bTeamGames = 0;
+
+            setEnd = false;
+            aTeamWinSet = false;
+
+            Games = new List<Game>() { new Game() };
+        }
     }
 
     /// <summary> ARD script
@@ -84,4 +106,108 @@ namespace TennisMatch
         }
     }
 
+    /// <summary> ARD script
+    /// <list type="explication">
+    /// <item> aTeamWinMatch  </item>
+    /// <item> aTeamSets      </item>
+    /// <item> bTeamSets      </item>
+    /// <item> Array[] Sets   </item>
+    /// </list> </summary>
+    [Serializable]
+    public class FinalScore
+    {
+        public bool aTeamWinMatch;
+
+        public int aTeamSets;
+        public int bTeamSets;
+
+        public SetComplete[] sets;
+
+        public FinalScore(SetComplete[] sets)
+        {
+            this.sets = sets;
+
+            aTeamSets = 0;
+            bTeamSets = 0;
+
+            foreach (SetComplete set in sets)
+            {
+                if (set.aTeamWinSet)
+                {
+                    aTeamSets++;
+                }
+                else
+                {
+                    bTeamSets++;
+                }
+            }
+
+            aTeamWinMatch = aTeamSets > bTeamSets;
+        }
+
+    }
+
+    /// <summary> ARD script
+    /// <list type="explication">
+    /// <item> aTeamWinSet  </item>
+    /// <item> aTeamGames      </item>
+    /// <item> bTeamGames      </item>
+    /// <item> Array[] games   </item>
+    /// </list> </summary>
+    [Serializable]
+    public class SetComplete
+    {
+        public bool aTeamWinSet;
+
+        public int aTeamGames;
+        public int bTeamGames;
+
+        public GameComplete[] games;
+
+        public SetComplete(GameComplete[] games)
+        {
+            this.games = games;
+
+            aTeamGames = 0;
+            bTeamGames = 0;
+
+            foreach(GameComplete game in games)
+            {
+                if (game.aTeamWinGame)
+                {
+                    aTeamGames++;
+                }
+                else
+                {
+                    bTeamGames++;
+                }
+            }
+
+            aTeamWinSet = aTeamGames > bTeamGames;
+        }
+
+    }
+
+    /// <summary> ARD script
+    /// <list type="explication">
+    /// <item> aTeamWinGame    </item>
+    /// <item> aTeamPoints      </item>
+    /// <item> bTeamPoints      </item>
+    /// </list> </summary>
+    [Serializable]
+    public class GameComplete
+    {
+        public bool aTeamWinGame;
+
+        public int aTeamPoints;
+        public int bTeamPoints;
+
+        public GameComplete(int aTeamPoints, int bTeamPoints)
+        {
+            this.aTeamPoints = aTeamPoints;
+            this.bTeamPoints = bTeamPoints;
+
+            aTeamWinGame = aTeamPoints > bTeamPoints;
+        }
+    }
 }
