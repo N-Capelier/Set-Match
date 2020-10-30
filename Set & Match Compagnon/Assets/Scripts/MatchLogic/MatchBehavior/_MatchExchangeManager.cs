@@ -22,7 +22,6 @@ namespace TennisMatch
             moveHistory = new Stack<MatchExchange>();
             movesRewind = new Stack<MatchExchange>();
         }
-
         private void Update()
         {
             if (moveHistory == null)
@@ -41,21 +40,59 @@ namespace TennisMatch
 
         public void ExchangeCommand(int increment)
         {
+            increment += (int)Mathf.Sign(increment) * rally.Bonus;
+            rally.Bonus = 0;
+
             MatchExchange currentMove = _MatchExchangeCommand.GenerateExchange
-                (rally.Pos, increment, turnManager.turnOfPlayer);
+                (rally.Pos, increment, _MatchTurnManager.turnOfPlayer, false);
+
+            ExecuteExchange(currentMove);
+        }
+
+        public void FaultCommand()
+        {
+            MatchExchange currentMove = _MatchExchangeCommand.GenerateExchange
+                (rally.Pos, 0, _MatchTurnManager.turnOfPlayer, true);
 
             ExecuteExchange(currentMove);
         }
 
         public void ExecuteExchange(MatchExchange exchange)
         {
-            //Do Exchange
-            turnManager.NextTurn();
             int rallyPos = exchange.rallyPosBeforeShoot + exchange.increment;
             rally.MovedTo(rallyPos);
+
             if (exchange.haveMarkedPoint)
             {
+                turnManager.NextTurn();
                 scorer.MarkedPoint(exchange.aTeamAction);
+
+                _MatchTurnManager.isService = true;
+                _MatchTurnManager.is2ndService = false;
+            }
+            else if (exchange.haveFault)
+            {
+                if(exchange.isService)
+                {
+                    _MatchTurnManager.isService = false;
+                    _MatchTurnManager.is2ndService = true;
+                }
+                else
+                {
+                    scorer.MarkedPoint(!exchange.aTeamAction);
+                    rally.ResetRally();
+                    MatchEvents.VisualUpdate();
+
+                    _MatchTurnManager.isService = true;
+                    _MatchTurnManager.is2ndService = false;
+                }
+            }
+            else
+            {
+                turnManager.NextTurn();
+
+                _MatchTurnManager.isService = false;
+                _MatchTurnManager.is2ndService = false;
             }
 
             //Save Exchange
@@ -76,9 +113,16 @@ namespace TennisMatch
             //undo
             turnManager.TurnOf(undoMove.playerShooting);
             rally.MovedTo(undoMove.rallyPosBeforeShoot);
+            _MatchTurnManager.isService = undoMove.isService;
+            _MatchTurnManager.is2ndService = undoMove.is2ndService;
+
             if (undoMove.haveMarkedPoint)
             {
                 scorer.RemovePoint(undoMove.aTeamAction);
+            }
+            else if (undoMove.haveFault)
+            {
+                scorer.RemovePoint(!undoMove.aTeamAction);
             }
 
             //Event du move

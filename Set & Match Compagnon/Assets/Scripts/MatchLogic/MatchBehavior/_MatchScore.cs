@@ -190,10 +190,6 @@ namespace TennisMatch
                 currentGame = match.score.Sets[currentSet].actualGame;
                 RemovePoint(aTeamUndo, currentSet, currentGame);
             }
-            else
-            {
-                Debug.Log("you're at the begining of the match or at the state save of a load match");
-            }
         }
 
         //Match

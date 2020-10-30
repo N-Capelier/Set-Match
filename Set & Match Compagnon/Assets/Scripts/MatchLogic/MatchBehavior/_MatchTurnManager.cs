@@ -13,7 +13,20 @@ namespace TennisMatch
 
         [Header("Variable")]
         public List<string> matchPlayers = new List<string>();
-        public int turnOfPlayer = 0;
+        public static int turnOfPlayer = 0;
+        public static bool isService = true;
+        public static bool is2ndService = false;
+
+        public int turnOfPlayerDebug = 0;
+        public bool isServiceDebug = true;
+        public bool is2ndServiceDebug = false;
+
+        private void Update()
+        {
+            turnOfPlayerDebug = turnOfPlayer;
+            isServiceDebug = isService;
+            is2ndServiceDebug = is2ndService;
+        }
 
         private void OnEnable() => MatchEvents.onMatchStart += Initialisation;
         private void OnDisable() => MatchEvents.onMatchStart -= Initialisation;
@@ -68,7 +81,7 @@ namespace TennisMatch
 
         public void TurnOf(int turnOfPlayer)
         {
-            this.turnOfPlayer = turnOfPlayer;
+            _MatchTurnManager.turnOfPlayer = turnOfPlayer;
         }
         public void NextTurn()
         {

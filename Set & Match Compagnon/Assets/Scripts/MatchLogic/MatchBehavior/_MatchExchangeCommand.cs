@@ -13,6 +13,7 @@ namespace TennisMatch
     public struct MatchExchange
     {
         public bool isService;
+        public bool is2ndService;
 
         public int playerShooting;
         public bool aTeamAction;
@@ -21,20 +22,23 @@ namespace TennisMatch
         public int increment;
 
         public bool haveMarkedPoint;
+        public bool haveFault;
 
         public MatchExchange
-            (int playerShooting, bool isService,
-             int rallyPos, int increment, bool pointMarked)
+            (int playerShooting, bool isService, bool is2ndService,
+             int rallyPos, int increment, bool pointMarked, bool haveFault)
         {
             this.isService = isService;
+            this.is2ndService = is2ndService;
 
             this.playerShooting = playerShooting;
-            this.aTeamAction = playerShooting%2 == 0;
+            aTeamAction = playerShooting%2 == 0;
 
-            this.rallyPosBeforeShoot = rallyPos;
+            rallyPosBeforeShoot = rallyPos;
             this.increment = increment;
-            this.haveMarkedPoint = pointMarked;
 
+            haveMarkedPoint = pointMarked;
+            this.haveFault = haveFault;
         }
     }
 
@@ -45,7 +49,7 @@ namespace TennisMatch
     /// </para> </summary>
     public static class _MatchExchangeCommand
     {
-        public static MatchExchange GenerateExchange(int rallyPos, int increment, int playerTurn)
+        public static MatchExchange GenerateExchange(int rallyPos, int increment, int playerTurn, bool isFault)
         {
             int turnOfPlayer = playerTurn;
 
@@ -56,8 +60,8 @@ namespace TennisMatch
 
             //Construction de l'Exchange à save
             MatchExchange currentMove = new MatchExchange
-            (turnOfPlayer, false,
-             rallyPos, increment, pointMarked);
+            (turnOfPlayer, _MatchTurnManager.isService, _MatchTurnManager.is2ndService,
+             rallyPos, increment, pointMarked, isFault);
 
             return currentMove;
         }

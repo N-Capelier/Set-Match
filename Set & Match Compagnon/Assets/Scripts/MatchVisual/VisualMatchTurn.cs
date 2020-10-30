@@ -14,6 +14,9 @@ namespace TennisMatch
         [Header("Component")]
         [SerializeField] private _MatchTurnManager turnManager;
         [Space(15)]
+        [SerializeField] private RectTransform service;
+        [SerializeField] private RectTransform service2nd;
+        [Space(15)]
         [SerializeField] private RectTransform teamA1;
         [SerializeField] private RectTransform teamB1;
         [Space(5)]
@@ -50,7 +53,8 @@ namespace TennisMatch
 
         public void UpdateTurn()
         {
-            TurnOf(turnManager.turnOfPlayer);
+            TurnOf(_MatchTurnManager.turnOfPlayer);
+            IsService();
         }
         private void TurnOf(int turnOfPlayer)
         {
@@ -172,6 +176,24 @@ namespace TennisMatch
             else
             {
                 Debug.LogError("");
+            }
+        }
+        private void IsService()
+        {
+            if (_MatchTurnManager.isService)
+            {
+                service.gameObject.SetActive(true);
+                service2nd.gameObject.SetActive(false);
+            }
+            else if(_MatchTurnManager.is2ndService)
+            {
+                service.gameObject.SetActive(false);
+                service2nd.gameObject.SetActive(true);
+            }
+            else
+            {
+                service.gameObject.SetActive(false);
+                service2nd.gameObject.SetActive(false);
             }
         }
     }

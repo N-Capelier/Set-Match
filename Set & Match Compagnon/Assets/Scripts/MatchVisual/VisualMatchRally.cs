@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using UnityEngine.UI;
 using UnityEngine;
 using DG.Tweening;
 
@@ -8,8 +9,10 @@ namespace TennisMatch
     {
         [Header("Component")]
         [SerializeField] private _MatchExchangeManager exchange;
+        [SerializeField] private _MatchRally rally;
         [Space(10)]
         [SerializeField] private RectTransform jeton;
+        [SerializeField] private Text BonusText;
 
         [Header("Variable")]
         [SerializeField, Range(0, 0.3f)] private float reductDistFactor = 0.2f;
@@ -19,20 +22,33 @@ namespace TennisMatch
 
         private void OnEnable() => MatchEvents.onVisualUpdate += UpdateVisual;
         private void OnDisable() => MatchEvents.onVisualUpdate -= UpdateVisual;
-        
+
+        private void FixedUpdate()
+        {
+            BonusText.gameObject.SetActive(rally.Bonus > 0);
+            BonusText.text = rally.Bonus.ToString();
+        }
+
         public void UpdateVisual()
         {
             if (exchange.moveHistory.Count > 0)
             {
-
                 MatchExchange lastMove = exchange.moveHistory.Peek();
 
                 int rallyPos = lastMove.rallyPosBeforeShoot + lastMove.increment;
                 int ballDistance = Mathf.Abs(lastMove.increment);
+                float targetPos = 0;
 
-                rallyPos = Mathf.Clamp(rallyPos, -3, 3);
-                // Pourquoi +3 ? Car rally value va de -3 à +3 et les pos du jetons de 0 à 7
-                float targetPos = jetonPose[rallyPos + 3];
+                if (lastMove.haveFault)
+                {
+                    targetPos = 3;
+                }
+                else
+                {
+                    rallyPos = Mathf.Clamp(rallyPos, -3, 3);
+                    // Pourquoi +3 ? Car rally value va de -3 à +3 et les pos du jetons de 0 à 7
+                    targetPos = jetonPose[rallyPos + 3];
+                }
 
                 jeton.DOAnchorPosX(targetPos, baseMoveDur - (reductDistFactor * ballDistance), false).SetEase(easeType);
 
@@ -45,10 +61,9 @@ namespace TennisMatch
             else
             {
                 jeton.DOAnchorPosX(jetonPose[3], baseMoveDur, false).SetEase(easeType);
-
             }
         }
-        
+
         IEnumerator PointWin(float targetPos, int shootDist)
         {
             jeton.DOAnchorPosX(targetPos, baseMoveDur - (reductDistFactor * shootDist), false).SetEase(easeType);

@@ -9,6 +9,17 @@ namespace TennisMatch
 
         [Header("Variable")]
         [SerializeField, Range(-3, 3)] private int rallyPosition = 0;
+        [SerializeField, Range(0, 3)] private int bonus = 0;
+        public int Bonus
+        {
+            get { return bonus; }
+            set 
+            {
+                bonus = Mathf.Clamp(bonus, 0, 3);
+                bonus = value; 
+            }
+        }
+
         public int Pos
         {
             get { return rallyPosition; }
@@ -28,6 +39,18 @@ namespace TennisMatch
                 Invoke("ResetRally", 0.2f);
             }
         }
+        public void BonusPoint()
+        {
+            if (bonus >= 3)
+            {
+                bonus = 0;
+            }
+            else
+            {
+                bonus++;
+            }
+        }
+
         public void ResetRally()
         {
             rallyPosition = 0;
