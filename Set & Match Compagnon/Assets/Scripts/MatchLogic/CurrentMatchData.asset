@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teamA_Player1: Arthur
   teamB_Player1: Vincent
-  teamA_P1img: {fileID: 21300000, guid: 0f6c89cc5adfa0041b796173a88de452, type: 3}
-  teamB_P1img: {fileID: 21300000, guid: fc6974c3f8eb6d94e83d1127a585a0b6, type: 3}
-  doubleMatch: 0
+  teamA_P1img: {fileID: 21300000, guid: bae63a31a5db1eb47a6346db6460419d, type: 3}
+  teamB_P1img: {fileID: 21300000, guid: bae63a31a5db1eb47a6346db6460419d, type: 3}
+  doubleMatch: 1
   teamA_Player2: Nico
   teamB_Player2: Manu
-  teamA_P2img: {fileID: 21300000, guid: 222489aa5a4b0ac48af895c0f44adc0c, type: 3}
-  teamB_P2img: {fileID: 21300000, guid: 5233af66888b26d4488ff55888abd07e, type: 3}
+  teamA_P2img: {fileID: 21300000, guid: bae63a31a5db1eb47a6346db6460419d, type: 3}
+  teamB_P2img: {fileID: 21300000, guid: bae63a31a5db1eb47a6346db6460419d, type: 3}
   score:
     aTeamSets: 0
     bTeamSets: 0
