@@ -8,6 +8,7 @@ public class CornerScreen : MonoBehaviour
     [SerializeField] float reductSize = 0.4f;
     [SerializeField] float focusSize = 1.25f;
     [SerializeField] Ease easeType = Ease.InOutCubic;
+    [SerializeField] Vector2 CenterPos;
     [SerializeField] Vector2 CornerPos;
     [SerializeField] Image fond;
     protected RectTransform menu;
@@ -30,8 +31,8 @@ public class CornerScreen : MonoBehaviour
     public void CenterViewport(float duration)
     {
         fond.gameObject.SetActive(true);
-        menu.DOAnchorPosX(0, duration, false).SetEase(easeType);
-        menu.DOAnchorPosY(0, duration, false).SetEase(easeType);
+        menu.DOAnchorPosX(CenterPos.x, duration, false).SetEase(easeType);
+        menu.DOAnchorPosY(CenterPos.y, duration, false).SetEase(easeType);
         menu.DOScale(focusSize, duration).SetEase(easeType);
         fond.DOColor(Color.white, duration).SetEase(easeType);
     }

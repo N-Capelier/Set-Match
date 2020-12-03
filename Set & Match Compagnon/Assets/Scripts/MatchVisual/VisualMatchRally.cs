@@ -1,7 +1,7 @@
 ﻿using System.Collections;
-using UnityEngine.UI;
 using UnityEngine;
 using DG.Tweening;
+using TMPro;
 
 namespace TennisMatch
 {
@@ -12,7 +12,7 @@ namespace TennisMatch
         [SerializeField] private _MatchRally rally;
         [Space(10)]
         [SerializeField] private RectTransform jeton;
-        [SerializeField] private Text BonusText;
+        [SerializeField] private TextMeshProUGUI BonusText;
 
         [Header("Variable")]
         [SerializeField, Range(0, 0.3f)] private float reductDistFactor = 0.2f;
@@ -25,7 +25,7 @@ namespace TennisMatch
 
         private void FixedUpdate()
         {
-            BonusText.gameObject.SetActive(rally.Bonus > 0);
+            BonusText.gameObject.SetActive(rally.Bonus >= 0);
             BonusText.text = rally.Bonus.ToString();
         }
 
@@ -36,7 +36,7 @@ namespace TennisMatch
                 MatchExchange lastMove = exchange.moveHistory.Peek();
 
                 int rallyPos = lastMove.rallyPosBeforeShoot + lastMove.increment;
-                int ballDistance = Mathf.Abs(lastMove.increment);
+                int ballDistance = Mathf.Abs(lastMove.increment) <= 3 ? Mathf.Abs(lastMove.increment) : 3 ;
                 float targetPos = 0;
 
                 if (lastMove.haveFault)
